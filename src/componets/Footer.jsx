@@ -245,7 +245,13 @@ const Footer = () => {
                 className="flex items-start gap-3 text-gray-400 hover:text-gray-200 transition-colors duration-300 group"
                 whileHover={{ x: 5 }}
               >
-                <div className="p-2 rounded-lg mt-1" style={neumorphicStyle()}>
+                <div
+                  className="p-2 rounded-lg mt-1"
+                  style={{
+                    background: "linear-gradient(145deg, #0c0e12, #10131a)",
+                    boxShadow: `6px 6px 12px rgba(5, 5, 7, 0.8), -4px -4px 8px rgba(35, 35, 45, 0.2)`,
+                  }}
+                >
                   <info.icon size={16} className="text-gray-300" />
                 </div>
                 <div>
@@ -261,7 +267,10 @@ const Footer = () => {
         <motion.div variants={fadeInUp} className="flex flex-col">
           <motion.div
             className="px-6 py-3 rounded-xl mb-6 w-fit"
-            style={neumorphicStyle()}
+            style={{
+              background: "linear-gradient(145deg, #0c0e12, #10131a)",
+              boxShadow: `6px 6px 12px rgba(5, 5, 7, 0.8), -4px -4px 8px rgba(35, 35, 45, 0.2)`,
+            }}
           >
             <h3 className="text-lg font-semibold text-gray-200 ">
               Get Started
