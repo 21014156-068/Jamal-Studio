@@ -4,6 +4,9 @@ import CaseStudySection from "../componets/Case";
 import TrustSection from "../componets/Trust";
 import TestimonialsSection from "../componets/Testmonial";
 import FAQSection from "../componets/Faqs";
+import ProcessSection from "../componets/process";
+import PerformanceLab from "../componets/Performance";
+import FooterHub from "../componets/hub";
 
 const Home = () => {
   return (
@@ -14,6 +17,9 @@ const Home = () => {
       <TrustSection />
       <TestimonialsSection />
       <FAQSection />
+      <ProcessSection />
+      <PerformanceLab />
+      <FooterHub />
     </div>
   );
 };
