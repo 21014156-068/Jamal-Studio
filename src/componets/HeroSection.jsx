@@ -101,16 +101,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#18181a] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
+    <section className="relative min-h-screen bg-[#0c0e12] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
       {/* Background Decor */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #444 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
+        <div className="absolute inset-0 opacity-10" />
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
           transition={{ duration: 8, repeat: Infinity }}
