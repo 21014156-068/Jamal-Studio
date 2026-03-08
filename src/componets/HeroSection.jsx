@@ -31,7 +31,7 @@ const DEMO_TESTIMONIALS = [
   {
     name: "M. Abubakar",
     role: "Marketing Director",
-    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth. Highly recommended for scaling.",
+    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth.",
     img: "/m.jpg",
     rating: 5,
   },
