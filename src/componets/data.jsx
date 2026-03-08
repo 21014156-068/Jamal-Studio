@@ -1,5 +1,6 @@
 import {
   Github,
+  Instagram,
   Linkedin,
   Mail,
   MapPin,
@@ -9,8 +10,40 @@ import {
   RefreshCw,
   ShieldCheck,
   ShoppingBag,
+  Twitter,
   Zap,
 } from "lucide-react";
+
+export const DEMO_TESTIMONIALS = [
+  {
+    name: "Tanseer Hamza",
+    role: "CEO, TechFlow",
+    text: "Jamal Studio didn't just build a site; they built a conversion engine. Our load speeds dropped by 60% and leads doubled.",
+    img: "/t.jpg",
+    rating: 5,
+  },
+  {
+    name: "Talha Ameen",
+    role: "Founder, E-com Hub",
+    text: "The Shopify customization is flawless. The neumorphic UI they implemented gives us a premium edge over competitors.",
+    img: "/u.jpg",
+    rating: 5,
+  },
+  {
+    name: "M. Abubakar",
+    role: "Marketing Director",
+    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth.",
+    img: "/m.jpg",
+    rating: 5,
+  },
+];
+
+export const SOCIAL_LINKS = [
+  { icon: Github, href: "https://github.com", label: "Github" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+];
 
 export const CONTACT_INFO = [
   {

@@ -12,37 +12,7 @@ import {
   Instagram,
   Cpu,
 } from "lucide-react";
-
-const DEMO_TESTIMONIALS = [
-  {
-    name: "Tanseer Hamza",
-    role: "CEO, TechFlow",
-    text: "Jamal Studio didn't just build a site; they built a conversion engine. Our load speeds dropped by 60% and leads doubled.",
-    img: "/t.jpg",
-    rating: 5,
-  },
-  {
-    name: "Talha Ameen",
-    role: "Founder, E-com Hub",
-    text: "The Shopify customization is flawless. The neumorphic UI they implemented gives us a premium edge over competitors.",
-    img: "/u.jpg",
-    rating: 5,
-  },
-  {
-    name: "M. Abubakar",
-    role: "Marketing Director",
-    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth.",
-    img: "/m.jpg",
-    rating: 5,
-  },
-];
-
-const SOCIAL_LINKS = [
-  { icon: Github, href: "https://github.com", label: "Github" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-];
+import { DEMO_TESTIMONIALS, SOCIAL_LINKS } from "./data";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
@@ -186,7 +156,7 @@ const HeroSection = () => {
             <motion.div
               className="relative z-20 p-8 md:p-10 rounded-[32px] overflow-hidden"
               style={nStyle("outset", 1.2)}
-              layout // Ensures smooth resizing of the card container
+              // Ensures smooth resizing of the card container
             >
               <div
                 className="absolute -top-0 left-6 px-3 py-1 rounded-xl text-sm font-medium z-30"
@@ -200,8 +170,8 @@ const HeroSection = () => {
                 Client Feedback
               </div>
 
-              {/* Added a fixed min-height wrapper to prevent jumpiness on mobile */}
-              <div className="min-h-[260px] md:min-h-[220px] flex flex-col justify-between">
+              {/* Fixed height wrapper to prevent card jumping on testimonial change */}
+              <div className="h-[280px] md:h-[260px] flex flex-col justify-between overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentTestimonial}
@@ -209,10 +179,10 @@ const HeroSection = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.4 }}
-                    className="pt-6"
+                    className="pt-6 flex flex-col"
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/5 shadow-lg">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/5 shadow-lg flex-shrink-0">
                         <img
                           src={DEMO_TESTIMONIALS[currentTestimonial].img}
                           alt={DEMO_TESTIMONIALS[currentTestimonial].name}
@@ -235,14 +205,14 @@ const HeroSection = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-300 italic leading-relaxed text-base md:text-lg mb-8">
+                    <p className="text-gray-300 italic leading-relaxed text-sm md:text-base mb-8 line-clamp-3 flex-grow">
                       "{DEMO_TESTIMONIALS[currentTestimonial].text}"
                     </p>
                   </motion.div>
                 </AnimatePresence>
 
-                {/* NEW: Performance & Managed Grid inside the card */}
-                <div className="grid grid-cols-3 gap-2 mt-auto">
+                {/* Performance & Managed Grid inside the card */}
+                <div className="grid grid-cols-3 gap-2 mt-auto flex-shrink-0">
                   {[
                     {
                       icon: <Zap size={14} />,
