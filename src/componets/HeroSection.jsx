@@ -5,10 +5,12 @@ import {
   Star,
   Zap,
   ShieldCheck,
+  Globe,
   Github,
   Linkedin,
   Twitter,
   Instagram,
+  Cpu,
 } from "lucide-react";
 
 const DEMO_TESTIMONIALS = [
@@ -29,7 +31,7 @@ const DEMO_TESTIMONIALS = [
   {
     name: "M. Abubakar",
     role: "Marketing Director",
-    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth.",
+    text: "Professional, fast, and strategic. They understand that performance is the foundation of digital growth. Highly recommended for scaling.",
     img: "/m.jpg",
     rating: 5,
   },
@@ -143,33 +145,33 @@ const HeroSection = () => {
               crafted to convert visitors into loyal customers.
             </motion.p>
 
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {[
-                {
-                  icon: <Zap size={18} className="text-amber-400" />,
-                  label: "99+ Performance",
-                },
-                {
-                  icon: <ShieldCheck size={18} className="text-blue-400" />,
-                  label: "Secure & Managed",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -5 }}
-                  className="flex items-center gap-3 p-4 rounded-2xl"
-                  style={nStyle("outset")}
-                >
-                  {item.icon}
-                  <span className="text-sm font-semibold text-gray-300">
-                    {item.label}
-                  </span>
-                </motion.div>
-              ))}
+            <div className="flex flex-wrap gap-6">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() =>
+                  window.open("https://wa.me/923331482815", "_blank")
+                }
+                className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-[10px] sm:text-xs md:text-base text-white transition-all shadow-lg"
+                style={{
+                  background: "linear-gradient(145deg, #1a1d24, #10131a)",
+                  ...nStyle("outset"),
+                }}
+              >
+                <MessageCircle size={16} className="hidden sm:block" />
+                Start Project
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors text-[10px] sm:text-xs md:text-base"
+                style={nStyle("outset")}
+              >
+                View Work
+              </motion.button>
             </div>
           </motion.div>
 
-          {/* RIGHT CONTENT: SINGLE TESTIMONIAL CARD */}
+          {/* RIGHT CONTENT: FIXED TESTIMONIAL CARD */}
           <motion.div
             className="relative"
             style={{
@@ -180,124 +182,113 @@ const HeroSection = () => {
             }}
           >
             <motion.div
-              className="relative z-20 p-6 md:p-10 rounded-[32px] overflow-hidden"
+              className="relative z-20 p-8 md:p-10 rounded-[32px] overflow-hidden"
               style={nStyle("outset", 1.2)}
+              layout // Ensures smooth resizing of the card container
             >
-              {/* Badge Overlay */}
               <div
-                className="absolute -top-3 left-6 px-3 py-1 rounded-xl text-sm font-medium"
+                className="absolute -top-0 left-6 px-3 py-1 rounded-xl text-sm font-medium z-30"
                 style={{
                   background: "linear-gradient(145deg, #0c0e12, #10131a)",
                   boxShadow:
-                    "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2), inset 1px 1px 2px rgba(35, 35, 45, 0.3), inset -1px -1px 2px rgba(5, 5, 7, 0.5)",
+                    "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
                   color: "#e1e1e1",
                 }}
               >
                 Client Feedback
               </div>
 
-              {/* Fixed height container for smooth transition */}
-              <div className="min-h-[220px] md:min-h-[180px] flex flex-col justify-start">
+              {/* Added a fixed min-height wrapper to prevent jumpiness on mobile */}
+              <div className="min-h-[260px] md:min-h-[220px] flex flex-col justify-between">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentTestimonial}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4 }}
                     className="pt-6"
                   >
-                    <div className="flex items-center gap-4 mb-4">
-                      <motion.div
-                        className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0"
-                        style={{
-                          boxShadow:
-                            "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
-                        }}
-                      >
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/5 shadow-lg">
                         <img
                           src={DEMO_TESTIMONIALS[currentTestimonial].img}
                           alt={DEMO_TESTIMONIALS[currentTestimonial].name}
                           className="w-full h-full object-cover"
                         />
-                      </motion.div>
+                      </div>
                       <div>
                         <div className="font-bold text-gray-100">
                           {DEMO_TESTIMONIALS[currentTestimonial].name}
-                        </div>
-                        <div className="text-sm text-gray-400">
-                          Verified Client
                         </div>
                         <div className="flex mt-1">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
                               size={14}
-                              className={
-                                i < DEMO_TESTIMONIALS[currentTestimonial].rating
-                                  ? "text-amber-400 fill-amber-400"
-                                  : "text-gray-600"
-                              }
+                              className="text-amber-400 fill-amber-400"
                             />
                           ))}
                         </div>
                       </div>
                     </div>
 
-                    <p className="text-gray-300 italic leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-300 italic leading-relaxed text-base md:text-lg mb-8">
                       "{DEMO_TESTIMONIALS[currentTestimonial].text}"
                     </p>
                   </motion.div>
                 </AnimatePresence>
+
+                {/* NEW: Performance & Managed Grid inside the card */}
+                <div className="grid grid-cols-3 gap-2 mt-auto">
+                  {[
+                    {
+                      icon: <Zap size={14} />,
+                      label: "99+ Perf",
+                      color: "text-emerald-500",
+                    },
+                    {
+                      icon: <ShieldCheck size={14} />,
+                      label: "Secure",
+                      color: "text-blue-500",
+                    },
+                    {
+                      icon: <Cpu size={14} />,
+                      label: "Managed",
+                      color: "text-purple-500",
+                    },
+                  ].map((stat, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col items-center justify-center py-3 px-1 rounded-xl gap-1"
+                      style={nStyle("inset")}
+                    >
+                      <span className={stat.color}>{stat.icon}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-tighter text-gray-500">
+                        {stat.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Dots Pagination */}
-              <div className="flex justify-center mt-4 gap-2">
+              <div className="flex justify-center mt-8 gap-2">
                 {DEMO_TESTIMONIALS.map((_, i) => (
                   <button
                     key={i}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      i === currentTestimonial
-                        ? "bg-gray-400 w-4"
-                        : "bg-gray-700"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-emerald-500 w-6" : "bg-gray-700"}`}
                     onClick={() => setCurrentTestimonial(i)}
                   />
                 ))}
               </div>
-
-              {/* Buttons Row - Fixed for Mobile same row */}
-              <div className="flex flex-row flex-nowrap gap-3 md:gap-6 mt-8">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() =>
-                    window.open("https://wa.me/923331482815", "_blank")
-                  }
-                  className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-[10px] sm:text-xs md:text-base text-white transition-all shadow-lg"
-                  style={{
-                    background: "linear-gradient(145deg, #1a1d24, #10131a)",
-                    ...nStyle("outset"),
-                  }}
-                >
-                  <MessageCircle size={16} className="hidden sm:block" />
-                  Start Project
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors text-[10px] sm:text-xs md:text-base"
-                  style={nStyle("outset")}
-                >
-                  View Work
-                </motion.button>
-              </div>
             </motion.div>
 
-            {/* Floating Score Badge */}
+            {/* Floating Speed Badge */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-6 -right-4 z-30 p-4 rounded-2xl hidden md:block"
+              className="absolute -top-6 -right-6 z-30 p-4 rounded-2xl hidden md:block"
               style={nStyle("outset")}
             >
               <div className="text-[10px] font-bold text-gray-500 uppercase">
@@ -311,12 +302,12 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* CENTERED SOCIAL LINKS */}
+        {/* SOCIAL LINKS */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="flex justify-center items-center gap-4 md:gap-6 mt-16"
+          className="flex justify-center items-center gap-6 mt-16"
         >
           {SOCIAL_LINKS.map((s) => (
             <motion.a
@@ -324,13 +315,13 @@ const HeroSection = () => {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 md:p-4 rounded-2xl transition-all"
+              className="p-4 rounded-2xl transition-all"
               style={nStyle("outset")}
               whileHover={{ y: -4, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <s.icon
-                size={20}
+                size={22}
                 className="text-gray-400 hover:text-white transition-colors"
               />
             </motion.a>
