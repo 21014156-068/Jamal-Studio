@@ -1,43 +1,6 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ExternalLink,
-  TrendingUp,
-  Zap,
-  BarChart3,
-  ArrowUpRight,
-  Monitor,
-} from "lucide-react";
-
-const PROJECTS = [
-  {
-    title: "Aura E-commerce",
-    category: "Shopify Development",
-    metrics: "+140% Sales Growth",
-    description:
-      "A complete Shopify overhaul focusing on mobile conversion and lightning-fast checkout.",
-    tags: ["Shopify", "UX Design", "Optimization"],
-    img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Nexus SaaS Engine",
-    category: "Web Development",
-    metrics: "99/100 Speed Score",
-    description:
-      "Engineered a high-performance Next.js platform that reduced bounce rates by 60%.",
-    tags: ["Next.js", "Performance", "SEO"],
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Peak Real Estate",
-    category: "Website Redesign",
-    metrics: "2x Lead Generation",
-    description:
-      "Transforming a legacy site into a modern, lead-capturing machine with custom CRM integration.",
-    tags: ["Redesign", "Lead Gen", "React"],
-    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
-  },
-];
+import { motion } from "framer-motion";
+import { TrendingUp, BarChart3, ArrowUpRight } from "lucide-react";
+import { PROJECTS } from "./data";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
@@ -85,19 +48,22 @@ const CaseStudyCard = ({ project, index }) => {
         </div>
       </div>
 
-      {/* Content Area */}
+      {/* /* Content Area */}
       <div className="flex-grow">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-2xl font-bold text-gray-100 tracking-tight">
             {project.title}
           </h3>
-          <motion.div
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ rotate: 45 }}
-            className="p-2 rounded-xl"
+            className="p-2 rounded-xl cursor-pointer"
             style={nStyle("inset")}
           >
             <ArrowUpRight size={20} className="text-gray-400" />
-          </motion.div>
+          </motion.a>
         </div>
 
         {/* Impact Metric - Key for Jamal Studio */}
@@ -135,8 +101,8 @@ const CaseStudySection = () => {
   return (
     <section className="relative py-24 bg-[#0c0e12] text-gray-100 overflow-hidden">
       {/* Decorative background numbers */}
-      <div className="absolute top-20 right-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
-        03
+      <div className="absolute top-20 right-10 text-[5rem] font-black text-white/[0.02] select-none pointer-events-none">
+        Jamal
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

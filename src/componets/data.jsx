@@ -88,3 +88,44 @@ export const SNAPSHOT_SERVICES = [
     color: "text-rose-400",
   },
 ];
+
+export const PROJECTS = [
+  {
+    title: "Paswal Tours LTD - Travel Agency",
+    category: "Wordpress Website",
+    metrics: "99/100 Speed Score",
+    description:
+      "A comprehensive online travel and visa services platform offering multi-entry and single-entry visas, flight bookings, and Pakistan NADRA services including ID card and passport issuance and renewal.",
+    tags: ["Wordpress", "Elementor", "UX Design", "Html", "PHP"],
+    img: "/pas1.png",
+    link: "https://www.mysafetrips.com",
+  },
+  {
+    title: "Alfattah Vibes- Ecommerce",
+    category: "Woocommerce Website",
+    metrics: "99/100 Speed Score",
+    description:
+      "A comprehensive eCommerce platform built with wordpress woocommerce for local business owner to sell their products online.",
+    tags: ["Wordpress", "Woocommerce", "Elementor", "Custom Html", "PHP"],
+    img: "/al.png",
+    link: "https://www.alfattahvibes.com",
+  },
+  {
+    title: "Green Garden ",
+    category: "Mern Stack Web App",
+    metrics: "2x Lead Generation",
+    description:
+      "A full-stack MERN eCommerce platform with admin panel, featuring real-time inventory management, secure payment processing, and AI-powered product recommendations for enhanced user engagement.",
+    tags: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "CNN",
+      "JWT",
+      "AI Integration",
+    ],
+    img: "/Main.png",
+    link: "https://github.com/21014156-068/green-garden",
+  },
+];
