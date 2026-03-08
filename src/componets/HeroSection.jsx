@@ -114,7 +114,7 @@ const HeroSection = () => {
 
       <div className="max-w-7xl mx-auto relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* LEFT CONTENT */}
+          {/* /* LEFT CONTENT */}
           <motion.div style={{ x: mousePos.x * -0.6, y: mousePos.y * -0.6 }}>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -132,7 +132,9 @@ const HeroSection = () => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">
                 {typingText}
               </span>
-              <span className="inline-block w-1 h-10 md:h-12 bg-gray-500 ml-2 animate-pulse align-middle" />
+              {typingText.length < fullHeadline.length && (
+                <span className="inline-block w-1 h-10 md:h-12 bg-gray-500 ml-2 animate-pulse align-middle" />
+              )}
             </motion.h1>
 
             <motion.p
