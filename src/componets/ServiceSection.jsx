@@ -52,7 +52,7 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-3xl font-black mb-6"
+              className="text-4xl md:text-5xl font-black mb-6"
             >
               Digital Solutions <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">
@@ -125,7 +125,7 @@ const ServicesSection = () => {
             transition={{ delay: 0.5 }}
             className="p-8 rounded-[32px] flex flex-col justify-center items-center text-center border border-dashed border-gray-800 bg-transparent"
           >
-            <h3 className="text-xl  font-bold text-gray-300 mb-4">
+            <h3 className="text-1xl  font-bold text-gray-300 mb-4">
               Have a custom requirement?
             </h3>
             <p className="text-gray-500 text-sm mb-8">
