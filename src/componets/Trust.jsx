@@ -93,7 +93,7 @@ const TrustSection = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">
             More than just{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
               pixels and code.
@@ -105,13 +105,12 @@ const TrustSection = () => {
             drive real results.
           </p>
         </div>
-
-        {/* ENGAGEMENT: IMPACT COUNTERS */}
+        {/* /* ENGAGEMENT: IMPACT COUNTERS */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {[
             {
-              label: "Projects Delivered",
-              value: 150,
+              label: "Projects in Progress",
+              value: 5,
               suffix: "+",
               icon: <Trophy className="text-gray-600" />,
             },
@@ -122,15 +121,15 @@ const TrustSection = () => {
               icon: <Timer className="text-gray-600" />,
             },
             {
-              label: "Client Retention",
-              value: 95,
+              label: "Quality Focus",
+              value: 100,
               suffix: "%",
               icon: <Users className="text-gray-600" />,
             },
             {
-              label: "ROI Generated",
-              value: 10,
-              suffix: "M+",
+              label: "Years Experience",
+              value: 5,
+              suffix: "+",
               icon: <Rocket className="text-gray-600" />,
             },
           ].map((stat, i) => (
@@ -143,7 +142,7 @@ const TrustSection = () => {
               style={nStyle("outset")}
             >
               <div className="mb-4 opacity-30">{stat.icon}</div>
-              <div className="text-3xl md:text-5xl font-black text-white mb-2">
+              <div className="text-2xl md:text-4xl font-black text-white mb-2">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">
@@ -152,8 +151,7 @@ const TrustSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* TRUST CARDS: EMOTIONAL CONNECTORS */}
+        {/* /* TRUST CARDS: EMOTIONAL CONNECTORS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {trustValues.map((item, i) => (
             <motion.div
@@ -167,7 +165,7 @@ const TrustSection = () => {
               </div>
 
               <div
-                className="w-16 h-16 flex items-center justify-center rounded-2xl mb-8"
+                className="w-16 h-16 flex items-center justify-center rounded-2xl mb-8 mx-auto"
                 style={nStyle("inset")}
               >
                 {item.icon}
@@ -182,7 +180,6 @@ const TrustSection = () => {
             </motion.div>
           ))}
         </div>
-
         {/* FINAL TRUST BAR: SECURITY & RELIABILITY */}
         <motion.div
           initial={{ opacity: 0 }}
