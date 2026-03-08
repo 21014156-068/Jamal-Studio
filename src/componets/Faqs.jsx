@@ -77,7 +77,7 @@ const FAQItem = ({ item, index, isOpen, toggle }) => {
             {item.icon}
           </div>
           <span
-            className={`text-lg font-bold transition-colors ${isOpen ? "text-white" : "text-gray-300"}`}
+            className={`text-sm md:text-lg font-bold transition-colors ${isOpen ? "text-white" : "text-gray-300"}`}
           >
             {item.question}
           </span>
@@ -99,7 +99,7 @@ const FAQItem = ({ item, index, isOpen, toggle }) => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="px-6 md:px-20 pb-8 text-gray-400 text-sm md:text-base leading-relaxed">
+            <div className="px-6 md:px-20 pb-8 text-gray-400 text-xs md:text-base leading-relaxed">
               <div className="pt-2 border-t border-white/5">{item.answer}</div>
             </div>
           </motion.div>
@@ -129,8 +129,8 @@ const FAQSection = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
-            Everything you <br />
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
+            Everything you {""}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">
               need to know.
             </span>

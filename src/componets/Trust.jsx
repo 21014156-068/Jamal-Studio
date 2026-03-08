@@ -187,16 +187,16 @@ const TrustSection = () => {
           className="mt-24 py-8 px-10 rounded-full flex flex-wrap justify-center items-center gap-10 opacity-40 grayscale"
           style={nStyle("inset")}
         >
-          <span className="text-sm font-bold flex items-center gap-2 underline decoration-emerald-500/50">
+          <span className="text-sm font-bold flex items-center gap-2 decoration-emerald-500/50">
             SSL ENCRYPTED
           </span>
-          <span className="text-sm font-bold flex items-center gap-2 underline decoration-blue-500/50">
+          <span className="text-sm font-bold flex items-center gap-2 decoration-blue-500/50">
             24/7 MONITORING
           </span>
-          <span className="text-sm font-bold flex items-center gap-2 underline decoration-purple-500/50">
+          <span className="text-sm font-bold flex items-center gap-2  decoration-purple-500/50">
             WEEKLY BACKUPS
           </span>
-          <span className="text-sm font-bold flex items-center gap-2 underline decoration-amber-500/50">
+          <span className="text-sm font-bold flex items-center gap-2 decoration-amber-500/50">
             SEO OPTIMIZED
           </span>
         </motion.div>

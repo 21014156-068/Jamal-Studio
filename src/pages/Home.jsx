@@ -6,7 +6,7 @@ import TestimonialsSection from "../componets/Testmonial";
 import FAQSection from "../componets/Faqs";
 import ProcessSection from "../componets/process";
 import PerformanceLab from "../componets/Performance";
-import FooterHub from "../componets/hub";
+import NewsletterSection from "../componets/Newsletter";
 
 const Home = () => {
   return (
@@ -21,7 +21,7 @@ const Home = () => {
       <FAQSection />
       <ProcessSection />
 
-      <FooterHub />
+      <NewsletterSection />
     </div>
   );
 };
