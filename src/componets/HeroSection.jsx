@@ -128,7 +128,7 @@ const HeroSection = () => {
               </span>
             </motion.div>
 
-            <motion.h1 className="text-4xl md:text-6xl font-bold leading-[1.1] mb-6 min-h-[100px] md:min-h-[140px]">
+            <motion.h1 className="text-4xl md:text-5xl font-bold leading-[1.1] mb-6 min-h-[100px] md:min-h-[140px]">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">
                 {typingText}
               </span>
@@ -159,14 +159,14 @@ const HeroSection = () => {
                 }}
               >
                 <MessageCircle size={16} className="hidden sm:block" />
-                Start Project
+                Contact Us
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors text-[10px] sm:text-xs md:text-base"
                 style={nStyle("outset")}
               >
-                View Work
+                View our Work
               </motion.button>
             </div>
           </motion.div>
