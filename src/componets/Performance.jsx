@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Gauge, Cpu, Globe2, Zap, LayoutPanelLeft, Layers } from "lucide-react";
 
 const STACK = [
-  { name: "Next.js", type: "Framework", power: 98 },
+  { name: "Mern Stack", type: "Front&Backends", power: 98 },
   { name: "Shopify Liquid", type: "E-commerce", power: 95 },
-  { name: "Tailwind CSS", type: "Styling", power: 99 },
-  { name: "Framer Motion", type: "Animation", power: 92 },
+  { name: "Wordpress", type: "CMS", power: 99 },
+  { name: "Woocommerce", type: "E-commerce", power: 99 },
 ];
 
 const nStyle = (type = "outset", intensity = 1) => {

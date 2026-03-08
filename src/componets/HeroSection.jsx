@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle,
   Star,
   Zap,
-  TrendingUp,
-  Globe,
   ShieldCheck,
   Github,
   Linkedin,
@@ -68,7 +66,6 @@ const HeroSection = () => {
   const [typingText, setTypingText] = useState("");
   const fullHeadline = "We build digital engines that scale.";
 
-  // Typing Effect
   useEffect(() => {
     let i = 0;
     const timer = setInterval(() => {
@@ -79,7 +76,6 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Parallax Effect
   useEffect(() => {
     const handleMove = (e) => {
       const { clientX, clientY } = e;
@@ -92,7 +88,6 @@ const HeroSection = () => {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  // Testimonial Rotation
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % DEMO_TESTIMONIALS.length);
@@ -102,9 +97,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen bg-[#0c0e12] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
-      {/* Background Decor */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 opacity-10" />
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
           transition={{ duration: 8, repeat: Infinity }}
@@ -174,34 +167,9 @@ const HeroSection = () => {
                 </motion.div>
               ))}
             </div>
-
-            <div className="flex flex-wrap gap-6">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
-                  window.open("https://wa.me/923331482815", "_blank")
-                }
-                className="px-8 py-4 rounded-2xl font-bold flex items-center gap-3 text-white transition-all shadow-lg"
-                style={{
-                  background: "linear-gradient(145deg, #1a1d24, #10131a)",
-                  ...nStyle("outset"),
-                }}
-              >
-                <MessageCircle size={20} />
-                Start Your Project
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className="px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors"
-                style={nStyle("outset")}
-              >
-                View Our Work
-              </motion.button>
-            </div>
           </motion.div>
 
-          {/* RIGHT CONTENT: UPDATED TESTIMONIAL DESIGN */}
+          {/* RIGHT CONTENT: SINGLE TESTIMONIAL CARD */}
           <motion.div
             className="relative"
             style={{
@@ -212,7 +180,7 @@ const HeroSection = () => {
             }}
           >
             <motion.div
-              className="relative z-20 p-8 md:p-10 rounded-[32px]"
+              className="relative z-20 p-6 md:p-10 rounded-[32px] overflow-hidden"
               style={nStyle("outset", 1.2)}
             >
               {/* Badge Overlay */}
@@ -228,76 +196,108 @@ const HeroSection = () => {
                 Client Feedback
               </div>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentTestimonial}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="pt-6"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <motion.div
-                      className="w-14 h-14 rounded-xl overflow-hidden"
-                      style={{
-                        boxShadow:
-                          "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
-                      }}
-                      whileHover={{ rotate: 5 }}
-                    >
-                      <img
-                        src={DEMO_TESTIMONIALS[currentTestimonial].img}
-                        alt={DEMO_TESTIMONIALS[currentTestimonial].name}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                    <div>
-                      <div className="font-bold text-gray-100">
-                        {DEMO_TESTIMONIALS[currentTestimonial].name}
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        Verified Client
-                      </div>
-                      <div className="flex mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={14}
-                            className={
-                              i < DEMO_TESTIMONIALS[currentTestimonial].rating
-                                ? "text-amber-400 fill-amber-400"
-                                : "text-gray-600"
-                            }
-                          />
-                        ))}
+              {/* Fixed height container for smooth transition */}
+              <div className="min-h-[220px] md:min-h-[180px] flex flex-col justify-start">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentTestimonial}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="pt-6"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <motion.div
+                        className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0"
+                        style={{
+                          boxShadow:
+                            "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
+                        }}
+                      >
+                        <img
+                          src={DEMO_TESTIMONIALS[currentTestimonial].img}
+                          alt={DEMO_TESTIMONIALS[currentTestimonial].name}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
+                      <div>
+                        <div className="font-bold text-gray-100">
+                          {DEMO_TESTIMONIALS[currentTestimonial].name}
+                        </div>
+                        <div className="text-sm text-gray-400">
+                          Verified Client
+                        </div>
+                        <div className="flex mt-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={14}
+                              className={
+                                i < DEMO_TESTIMONIALS[currentTestimonial].rating
+                                  ? "text-amber-400 fill-amber-400"
+                                  : "text-gray-600"
+                              }
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <p className="text-gray-300 mb-0 italic leading-relaxed">
-                    "{DEMO_TESTIMONIALS[currentTestimonial].text}"
-                  </p>
-                </motion.div>
-              </AnimatePresence>
+                    <p className="text-gray-300 italic leading-relaxed text-sm md:text-base">
+                      "{DEMO_TESTIMONIALS[currentTestimonial].text}"
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
               {/* Dots Pagination */}
-              <div className="flex justify-center mt-8 gap-2">
+              <div className="flex justify-center mt-4 gap-2">
                 {DEMO_TESTIMONIALS.map((_, i) => (
                   <button
                     key={i}
-                    className={`w-2 h-2 rounded-full transition-all ${i === currentTestimonial ? "bg-gray-400 w-4" : "bg-gray-700"}`}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === currentTestimonial
+                        ? "bg-gray-400 w-4"
+                        : "bg-gray-700"
+                    }`}
                     onClick={() => setCurrentTestimonial(i)}
                   />
                 ))}
               </div>
+
+              {/* Buttons Row - Fixed for Mobile same row */}
+              <div className="flex flex-row flex-nowrap gap-3 md:gap-6 mt-8">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() =>
+                    window.open("https://wa.me/923331482815", "_blank")
+                  }
+                  className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-[10px] sm:text-xs md:text-base text-white transition-all shadow-lg"
+                  style={{
+                    background: "linear-gradient(145deg, #1a1d24, #10131a)",
+                    ...nStyle("outset"),
+                  }}
+                >
+                  <MessageCircle size={16} className="hidden sm:block" />
+                  Start Project
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors text-[10px] sm:text-xs md:text-base"
+                  style={nStyle("outset")}
+                >
+                  View Work
+                </motion.button>
+              </div>
             </motion.div>
 
-            {/* Floating Score Badges (Kept for advanced feel) */}
+            {/* Floating Score Badge */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-6 -right-6 z-30 p-4 rounded-2xl hidden md:block"
+              className="absolute -top-6 -right-4 z-30 p-4 rounded-2xl hidden md:block"
               style={nStyle("outset")}
             >
               <div className="text-[10px] font-bold text-gray-500 uppercase">
@@ -316,7 +316,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="flex justify-center items-center gap-6 mt-16"
+          className="flex justify-center items-center gap-4 md:gap-6 mt-16"
         >
           {SOCIAL_LINKS.map((s) => (
             <motion.a
@@ -324,13 +324,13 @@ const HeroSection = () => {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 rounded-2xl transition-all"
+              className="p-3 md:p-4 rounded-2xl transition-all"
               style={nStyle("outset")}
               whileHover={{ y: -4, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <s.icon
-                size={22}
+                size={20}
                 className="text-gray-400 hover:text-white transition-colors"
               />
             </motion.a>
