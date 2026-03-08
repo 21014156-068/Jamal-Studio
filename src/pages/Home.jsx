@@ -16,11 +16,9 @@ const Home = () => {
       <CaseStudySection />
       <PerformanceLab />
       <TrustSection />
-
       <TestimonialsSection />
-      <FAQSection />
       <ProcessSection />
-
+      <FAQSection />
       <ProjectCTA />
     </div>
   );

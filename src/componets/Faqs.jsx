@@ -113,7 +113,7 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="relative py-24 bg-[#000000] text-gray-100 overflow-hidden">
+    <section className="relative py-24 bg-[#0c0e12] text-gray-100 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
