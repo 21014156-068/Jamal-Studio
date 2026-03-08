@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/Home";
+import Home from "./pages/Home";
 import Navbar from "./componets/Navbar";
 import Footer from "./componets/Footer";
 
@@ -9,7 +9,7 @@ function App() {
       <div className="app" style={{ position: "relative" }}>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Home />} />
         </Routes>
         <Footer />
       </div>

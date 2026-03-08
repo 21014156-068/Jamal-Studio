@@ -1,14 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Linkedin,
-  Github,
-  MessageCircle,
-  Mail,
-  MapPin,
-  Phone,
-  ArrowUp,
-} from "lucide-react";
+import { MessageCircle, Mail, MapPin, Phone, ArrowUp } from "lucide-react";
+import { SOCIAL } from "./data";
+import { CONTACT_INFO } from "./data";
 
 // Unified Quick Links for the complete site
 const QUICK_LINKS = [
@@ -17,45 +11,6 @@ const QUICK_LINKS = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
   { label: "Blogs", href: "/blogs" },
-];
-
-const SOCIAL = [
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/",
-    icon: Linkedin,
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/",
-    icon: Github,
-  },
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/923331482815?text=Hi%20Jamal%20Team!%20I%20want%20to%20discuss%20my%20project.",
-    icon: MessageCircle,
-  },
-];
-
-const CONTACT_INFO = [
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+92 333 1482815",
-    href: "tel:+923331482815",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "contact@jamalagency.com",
-    href: "mailto:contact@jamalagency.com",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Pakistan",
-    href: "#",
-  },
 ];
 
 // Framer Motion variants
@@ -245,13 +200,7 @@ const Footer = () => {
                 className="flex items-start gap-3 text-gray-400 hover:text-gray-200 transition-colors duration-300 group"
                 whileHover={{ x: 5 }}
               >
-                <div
-                  className="p-2 rounded-lg mt-1"
-                  style={{
-                    background: "linear-gradient(145deg, #0c0e12, #10131a)",
-                    boxShadow: `6px 6px 12px rgba(5, 5, 7, 0.8), -4px -4px 8px rgba(35, 35, 45, 0.2)`,
-                  }}
-                >
+                <div className="p-2 rounded-lg mt-1" style={neumorphicStyle()}>
                   <info.icon size={16} className="text-gray-300" />
                 </div>
                 <div>
@@ -267,10 +216,7 @@ const Footer = () => {
         <motion.div variants={fadeInUp} className="flex flex-col">
           <motion.div
             className="px-6 py-3 rounded-xl mb-6 w-fit"
-            style={{
-              background: "linear-gradient(145deg, #0c0e12, #10131a)",
-              boxShadow: `6px 6px 12px rgba(5, 5, 7, 0.8), -4px -4px 8px rgba(35, 35, 45, 0.2)`,
-            }}
+            style={neumorphicStyle()}
           >
             <h3 className="text-lg font-semibold text-gray-200 ">
               Get Started
