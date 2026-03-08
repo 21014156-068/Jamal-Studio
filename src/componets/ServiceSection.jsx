@@ -9,44 +9,7 @@ import {
   ArrowRight,
   ChevronRight,
 } from "lucide-react";
-
-const SNAPSHOT_SERVICES = [
-  {
-    title: "Website Development",
-    description:
-      "Custom business websites engineered for peak performance, modern user experiences, and consistent lead generation.",
-    icon: MonitorSmartphone,
-    color: "text-blue-400",
-  },
-  {
-    title: "E-commerce Development",
-    description:
-      "Specialized Shopify and WooCommerce solutions built to maximize online sales and streamline the customer journey.",
-    icon: ShoppingBag,
-    color: "text-emerald-400",
-  },
-  {
-    title: "Website Optimization",
-    description:
-      "Technical tuning of speed, SEO structure, and Core Web Vitals to improve your rankings and conversion rates.",
-    icon: Zap,
-    color: "text-amber-400",
-  },
-  {
-    title: "Website Redesign",
-    description:
-      "Modernizing outdated sites into responsive, high-converting platforms that reflect your brand’s current authority.",
-    icon: RefreshCw,
-    color: "text-purple-400",
-  },
-  {
-    title: "Maintenance & Support",
-    description:
-      "Proactive security monitoring and performance management to ensure your digital asset remains stable 24/7.",
-    icon: ShieldCheck,
-    color: "text-rose-400",
-  },
-];
+import { SNAPSHOT_SERVICES } from "./data";
 
 // Consistent Neumorphic Utility
 const nStyle = (type = "outset", intensity = 1) => {
@@ -75,18 +38,21 @@ const ServicesSection = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="inline-block px-4 py-1.5 rounded-full mb-4 text-xs font-bold tracking-widest uppercase text-gray-500"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl mb-6 shadow-inner"
               style={nStyle("inset")}
             >
-              Our Expertise
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-bold tracking-widest uppercase text-gray-400">
+                Our Expertise
+              </span>
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl font-black mb-6"
+              className="text-5xl md:text-3xl font-black mb-6"
             >
               Digital Solutions <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">
@@ -115,7 +81,7 @@ const ServicesSection = () => {
           </motion.button>
         </div>
 
-        {/* SERVICES SNAPSHOT GRID */}
+        {/* /* SERVICES SNAPSHOT GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SNAPSHOT_SERVICES.map((service, i) => (
             <motion.div
@@ -128,7 +94,7 @@ const ServicesSection = () => {
               style={nStyle("outset")}
             >
               <div
-                className="w-14 h-14 flex items-center justify-center rounded-2xl mb-8 transition-all duration-500 group-hover:rotate-[360deg]"
+                className="w-14 h-14 flex items-center justify-center rounded-2xl mb-8 transition-all duration-500 group-hover:rotate-[360deg] mx-auto"
                 style={nStyle("inset")}
               >
                 <service.icon size={28} className={service.color} />
@@ -159,8 +125,8 @@ const ServicesSection = () => {
             transition={{ delay: 0.5 }}
             className="p-8 rounded-[32px] flex flex-col justify-center items-center text-center border border-dashed border-gray-800 bg-transparent"
           >
-            <h3 className="text-xl font-bold text-gray-300 mb-4">
-              Have a custom <br /> requirement?
+            <h3 className="text-xl  font-bold text-gray-300 mb-4">
+              Have a custom requirement?
             </h3>
             <p className="text-gray-500 text-sm mb-8">
               We build specialized solutions tailored to your unique business

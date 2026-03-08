@@ -184,7 +184,6 @@ const CaseStudySection = () => {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -192,10 +191,10 @@ const CaseStudySection = () => {
           style={nStyle("outset", 1.5)}
         >
           <div>
-            <h3 className="text-3xl font-bold mb-2 text-white">
+            <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
               Ready to be our next success story?
             </h3>
-            <p className="text-gray-500">
+            <p className="text-sm md:text-base text-gray-500">
               Let's build a digital engine that drives your business forward.
             </p>
           </div>
@@ -203,13 +202,13 @@ const CaseStudySection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => window.open("https://wa.me/923331482815", "_blank")}
-            className="px-10 py-5 rounded-[20px] font-black text-white shadow-2xl transition-all"
+            className="px-6 md:px-10 py-3 md:py-5 rounded-[20px] font-black text-white text-sm md:text-base shadow-2xl transition-all"
             style={{
               background: "linear-gradient(145deg, #1a1d24, #000000)",
               ...nStyle("outset"),
             }}
           >
-            BOOK A STRATEGY CALL
+            BOOK A CALL
           </motion.button>
         </motion.div>
       </div>
