@@ -79,7 +79,7 @@ const TestimonialsSection = () => {
   return (
     <section className="relative py-28 bg-[#000000] text-gray-100 overflow-hidden flex flex-col items-center">
       {/* Header */}
-      <div className="text-center mb-16 px-6">
+      <div className="text-center mt-[-60px] mb-[-10px] px-6">
         <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
           Trusted by <span className="text-gray-500">Industry Leaders</span>
         </h2>
@@ -165,7 +165,7 @@ const TestimonialsSection = () => {
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex gap-6 mt-12">
+      <div className="flex gap-6 mt-[-5px] mb-[-50px]">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

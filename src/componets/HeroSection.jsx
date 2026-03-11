@@ -5,16 +5,14 @@ import { DEMO_TESTIMONIALS, SOCIAL_LINKS } from "./data";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
-    // Finalized HD Neumorphic Logic
-    outset: `${14 * intensity}px ${14 * intensity}px ${30 * intensity}px rgba(51, 65, 85, 0.15), -${12 * intensity}px -${12 * intensity}px ${28 * intensity}px rgba(255, 255, 255, 0.8)`,
-    inset:
-      "inset 6px 6px 14px rgba(51, 65, 85, 0.1), inset -6px -6px 14px rgba(255, 255, 255, 0.5)",
+    outset: `${9 * intensity}px ${9 * intensity}px ${16 * intensity}px #babecc, -${9 * intensity}px -${9 * intensity}px ${16 * intensity}px #ffffff`,
+    inset: `inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff`,
   };
-
   return {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#e0e5ec",
     boxShadow: shadows[type],
-    border: "1.5px solid #E2E8F0",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   };
 };
 

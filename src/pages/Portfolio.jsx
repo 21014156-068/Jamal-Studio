@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
-  Github,
+  GithubIcon,
   X,
   CheckCircle2,
   Layers,
@@ -10,7 +10,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Monitor,
+  ShieldCheck,
+  Zap,
+  Coffee,
+  Heart,
 } from "lucide-react";
+import TestimonialsSection from "../componets/Testmonial";
 
 // --------------------------------------------
 // PROJECT DATA (unchanged)
@@ -101,9 +106,9 @@ const projects = [
 ];
 
 // --------------------------------------------
-// NEUMORPHIC CONFIG (True Neumorphism uses same BG/Color)
+// NEUMORPHIC CONFIG
 // --------------------------------------------
-const themeColor = "#e0e5ec"; // Traditional Neumorphic Grey-Blue
+const themeColor = "#e0e5ec";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
@@ -124,7 +129,6 @@ export default function ProjectsPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Handle responsiveness via JS for the carousel logic
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -168,8 +172,6 @@ export default function ProjectsPage() {
     if (relativePos > totalCards / 2) relativePos -= totalCards;
 
     const isCenter = relativePos === 0;
-
-    // Mobile Adjustments
     const radius = isMobile ? 0 : 380;
     const angleStep = 30;
     const angle = relativePos * angleStep;
@@ -190,10 +192,10 @@ export default function ProjectsPage() {
         {`
           .hide-scrollbar::-webkit-scrollbar { display: none; }
           .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-          
           @media (max-width: 768px) {
             .mobile-title { font-size: 2.2rem !important; }
             .nav-btn { width: 45px !important; height: 45px !important; }
+            .stats-grid { grid-template-columns: 1fr !important; }
           }
         `}
       </style>
@@ -208,6 +210,7 @@ export default function ProjectsPage() {
           <Monitor size={14} />
           <span>Success Stories</span>
         </motion.div>
+
         <h1 style={styles.title} className="mobile-title">
           Proven <span style={styles.gradientText}>Results.</span>
         </h1>
@@ -234,7 +237,6 @@ export default function ProjectsPage() {
         <div style={styles.cardsWrapper}>
           {circularProjects.map((project, index) => {
             const pos = getCardPosition(index);
-
             return (
               <motion.div
                 key={`${project.id}-${index}`}
@@ -258,7 +260,6 @@ export default function ProjectsPage() {
                     <Star size={12} fill="currentColor" /> Featured
                   </div>
                 )}
-
                 <div style={{ ...styles.imageWrapper, ...nStyle("inset") }}>
                   <img
                     src={project.image}
@@ -266,7 +267,6 @@ export default function ProjectsPage() {
                     style={styles.cardImage}
                   />
                 </div>
-
                 <div style={styles.cardOverlay}>
                   <span style={styles.cardCategory}>{project.category}</span>
                   <h3 style={styles.cardTitle}>{project.title}</h3>
@@ -312,7 +312,7 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Modal - Unchanged Details Logic */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -344,14 +344,12 @@ export default function ProjectsPage() {
                     style={styles.modalImg}
                   />
                 </div>
-
                 <div style={styles.modalDetails}>
                   <span style={styles.modalCategory}>
                     {selectedProject.category}
                   </span>
                   <h2 style={styles.modalTitle}>{selectedProject.title}</h2>
                   <p style={styles.modalDesc}>{selectedProject.description}</p>
-
                   <div style={styles.modalColumns}>
                     <div>
                       <div style={styles.sectionTitle}>
@@ -381,7 +379,6 @@ export default function ProjectsPage() {
                       </ul>
                     </div>
                   </div>
-
                   <div style={styles.btnGroup}>
                     <motion.a
                       href={selectedProject.liveLink}
@@ -396,7 +393,7 @@ export default function ProjectsPage() {
                         target="_blank"
                         style={{ ...styles.secondaryBtn, ...nStyle("outset") }}
                       >
-                        <Github size={18} /> GitHub
+                        <GithubIcon size={18} /> GitHub
                       </motion.a>
                     )}
                   </div>
@@ -406,18 +403,118 @@ export default function ProjectsPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Testimonials */}
+      <div style={{ width: "100%", backgroundColor: "#F5F5F5" }}>
+        <TestimonialsSection />
+      </div>
+
+      {/* NEW ADVANCED TRUST & ENGAGEMENT SECTION */}
+      <section style={styles.trustSection}>
+        <div style={styles.trustContainer}>
+          <div style={styles.trustHeader}>
+            <div
+              style={{
+                ...styles.badge,
+                margin: "0 auto 15px auto",
+                ...nStyle("inset"),
+              }}
+            >
+              <ShieldCheck size={14} />
+              <span>Zero Risk Commitment</span>
+            </div>
+            <h2
+              style={{
+                ...styles.title,
+                fontSize: "2.5rem",
+                marginBottom: "15px",
+              }}
+            >
+              Why Trust My <span style={styles.gradientText}>Process?</span>
+            </h2>
+            <p style={{ ...styles.subtitle, margin: "0 auto 40px auto" }}>
+              Building digital excellence isn't just about code; it's about
+              reliability and measurable impact.
+            </p>
+          </div>
+
+          <div style={styles.statsGrid} className="stats-grid">
+            {[
+              {
+                icon: <Zap color="#2563eb" />,
+                label: "Avg. Performance Score",
+                value: "98%",
+                desc: "Optimized for Core Web Vitals",
+              },
+              {
+                icon: <CheckCircle2 color="#2563eb" />,
+                label: "Project Success Rate",
+                value: "100%",
+                desc: "Every project delivered on time",
+              },
+              {
+                icon: <Coffee color="#2563eb" />,
+                label: "Cups of Coffee",
+                value: "840+",
+                desc: "Fueling complex logic & design",
+              },
+              {
+                icon: <Heart color="#2563eb" />,
+                label: "Client Satisfaction",
+                value: "5.0",
+                desc: "Based on 20+ verified reviews",
+              },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -5 }}
+                style={{ ...styles.statCard, ...nStyle("outset") }}
+              >
+                <div style={{ ...styles.statIcon, ...nStyle("inset") }}>
+                  {stat.icon}
+                </div>
+                <h4 style={styles.statValue}>{stat.value}</h4>
+                <p style={styles.statLabel}>{stat.label}</p>
+                <p style={styles.statDesc}>{stat.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div style={{ ...styles.guaranteeBox, ...nStyle("inset") }}>
+            <div style={styles.guaranteeFlex}>
+              <div style={styles.guaranteeText}>
+                <h4 style={{ margin: "0 0 5px 0", color: "#31344b" }}>
+                  Quality Assurance Guarantee
+                </h4>
+                <p style={{ margin: 0, fontSize: "14px", color: "#777" }}>
+                  Every line of code is tested for security, scalability, and
+                  responsiveness before deployment.
+                </p>
+              </div>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  ...styles.primaryBtn,
+                  ...nStyle("outset"),
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => (window.location.href = "#contact")}
+              >
+                Start Your Project
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
-// --------------------------------------------
-// STYLES
-// --------------------------------------------
 const styles = {
   page: {
     background: "#F5F5F5",
     minHeight: "100vh",
-    padding: "60px 20px",
     color: "#444",
     fontFamily: "'Inter', sans-serif",
     overflowX: "hidden",
@@ -440,13 +537,13 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    marginTop: "40px",
-    marginBottom: "10px",
+    marginTop: "100px",
+    marginBottom: "0px",
   },
   title: {
     fontSize: "4rem",
     fontWeight: "900",
-    margin: "0",
+    marginBottom: "-10px",
     color: "#31344b",
     letterSpacing: "-1px",
   },
@@ -458,6 +555,7 @@ const styles = {
     fontSize: "1.1rem",
     marginTop: "10px",
     maxWidth: "500px",
+    marginBottom: "-30px",
   },
   carouselContainer: {
     maxWidth: "1200px",
@@ -670,4 +768,74 @@ const styles = {
     borderRadius: "50%",
   },
   btnGroup: { display: "flex", gap: "15px" },
+
+  /* NEW SECTION STYLES */
+  trustSection: {
+    padding: "100px 20px",
+    width: "100%",
+    maxWidth: "1200px",
+    margin: "0 auto",
+  },
+  trustContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "40px",
+  },
+  trustHeader: {
+    textAlign: "center",
+  },
+  statsGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "25px",
+  },
+  statCard: {
+    padding: "30px 20px",
+    borderRadius: "30px",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  statIcon: {
+    width: "50px",
+    height: "50px",
+    borderRadius: "15px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "15px",
+  },
+  statValue: {
+    fontSize: "2rem",
+    fontWeight: "900",
+    margin: "0",
+    color: "#31344b",
+  },
+  statLabel: {
+    fontSize: "14px",
+    fontWeight: "bold",
+    color: "#2563eb",
+    margin: "5px 0",
+  },
+  statDesc: {
+    fontSize: "12px",
+    color: "#888",
+    margin: 0,
+  },
+  guaranteeBox: {
+    marginTop: "20px",
+    padding: "30px 40px",
+    borderRadius: "30px",
+  },
+  guaranteeFlex: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: "20px",
+  },
+  guaranteeText: {
+    maxWidth: "600px",
+  },
 };
