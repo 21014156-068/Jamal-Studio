@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageCircle,
-  Star,
-  Zap,
-  ShieldCheck,
-  Globe,
-  Github,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Cpu,
-} from "lucide-react";
+import { MessageCircle, Star, Zap, ShieldCheck, Cpu } from "lucide-react";
 import { DEMO_TESTIMONIALS, SOCIAL_LINKS } from "./data";
 
 const nStyle = (type = "outset", intensity = 1) => {
@@ -68,7 +57,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#0c0e12] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
+    <section className="relative min-h-screen bg-[#000000] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
       <div className="absolute inset-0 z-0">
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}

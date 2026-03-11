@@ -1,14 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  MonitorSmartphone,
-  ShoppingBag,
-  Zap,
-  RefreshCw,
-  ShieldCheck,
-  ArrowRight,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { SNAPSHOT_SERVICES } from "./data";
 
 // Consistent Neumorphic Utility

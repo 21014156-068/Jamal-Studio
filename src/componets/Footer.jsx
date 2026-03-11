@@ -69,21 +69,9 @@ const Footer = () => {
       ref={footerRef}
       className="relative pt-20 pb-10 px-4 z-30 overflow-hidden"
       style={{
-        background: "#000000",
+        background: "#0c0e12",
       }}
     >
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
       {/* Animated floating elements */}
       {[...Array(5)].map((_, i) => (
         <motion.div
