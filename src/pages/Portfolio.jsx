@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Note: ensure you use your project's framer-motion import
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
   Github,
@@ -11,6 +11,10 @@ import {
   ChevronRight,
   Monitor,
 } from "lucide-react";
+
+// --------------------------------------------
+// PROJECT DATA (unchanged)
+// --------------------------------------------
 const projects = [
   {
     id: 1,
@@ -43,7 +47,7 @@ const projects = [
     title: "Paswal Tours LTD",
     category: "Travel Agency Website",
     isFeatured: true,
-    image: "/pas1.png",
+    image: "/loo.png",
     description:
       "A comprehensive online travel and visa services platform offering multi-entry and single-entry visas, flight bookings, and Pakistan NADRA services including ID card and passport issuance and renewal.",
     techStack: ["WordPress", "Elementor", "PHP", "Html", "Tailwind CSS"],
@@ -88,7 +92,7 @@ const projects = [
       "Fully responsive design",
       "Advanced 3D animations",
       "Smooth page transitions",
-      "Multi-page layout (Home, About, Resume, Services, Projects, Contact)",
+      "Multi-page layout",
       "CV download functionality",
     ],
     liveLink: "https://abdullahjs.dev/",
@@ -96,18 +100,21 @@ const projects = [
   },
 ];
 
-// Finalized Jamal Studio HD Neumorphic Logic
+// --------------------------------------------
+// NEUMORPHIC CONFIG (True Neumorphism uses same BG/Color)
+// --------------------------------------------
+const themeColor = "#e0e5ec"; // Traditional Neumorphic Grey-Blue
+
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
-    outset: `${14 * intensity}px ${14 * intensity}px ${30 * intensity}px rgba(51, 65, 85, 0.15), -${12 * intensity}px -${12 * intensity}px ${28 * intensity}px rgba(255, 255, 255, 0.8)`,
-    inset:
-      "inset 6px 6px 14px rgba(51, 65, 85, 0.1), inset -6px -6px 14px rgba(255, 255, 255, 0.5)",
+    outset: `${9 * intensity}px ${9 * intensity}px ${16 * intensity}px #babecc, -${9 * intensity}px -${9 * intensity}px ${16 * intensity}px #ffffff`,
+    inset: `inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff`,
   };
-
   return {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: themeColor,
     boxShadow: shadows[type],
-    border: "1.5px solid #E2E8F0",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   };
 };
 
@@ -115,7 +122,15 @@ export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Handle responsiveness via JS for the carousel logic
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const featuredIndex = projects.findIndex((p) => p.isFeatured);
 
@@ -152,23 +167,21 @@ export default function ProjectsPage() {
     let relativePos = (index - currentIndex + totalCards) % totalCards;
     if (relativePos > totalCards / 2) relativePos -= totalCards;
 
+    const isCenter = relativePos === 0;
+
+    // Mobile Adjustments
+    const radius = isMobile ? 0 : 380;
     const angleStep = 30;
     const angle = relativePos * angleStep;
-    const radius = 400;
-    const xOffset = Math.sin(angle * (Math.PI / 180)) * radius;
 
-    const distance = Math.abs(relativePos);
-    const scale = Math.max(0.7, 1 - distance * 0.15);
-    const opacity = Math.max(0.4, 1 - distance * 0.2);
-    const zIndex = totalCards - distance;
+    const xOffset = isMobile
+      ? relativePos * 85 + "%"
+      : Math.sin(angle * (Math.PI / 180)) * radius;
+    const scale = isCenter ? 1 : isMobile ? 0.85 : 0.75;
+    const opacity = isCenter ? 1 : isMobile ? 0 : 0.5;
+    const zIndex = 10 - Math.abs(relativePos);
 
-    return {
-      x: xOffset,
-      scale,
-      opacity,
-      zIndex,
-      isCenter: relativePos === 0,
-    };
+    return { x: xOffset, scale, opacity, zIndex, isCenter };
   };
 
   return (
@@ -177,59 +190,68 @@ export default function ProjectsPage() {
         {`
           .hide-scrollbar::-webkit-scrollbar { display: none; }
           .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          
+          @media (max-width: 768px) {
+            .mobile-title { font-size: 2.2rem !important; }
+            .nav-btn { width: 45px !important; height: 45px !important; }
+          }
         `}
       </style>
 
+      {/* Header */}
       <header style={styles.header}>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          style={styles.badge}
+          style={{ ...styles.badge, ...nStyle("inset") }}
         >
           <Monitor size={14} />
           <span>Success Stories</span>
         </motion.div>
-        <h1 style={styles.title}>
+        <h1 style={styles.title} className="mobile-title">
           Proven <span style={styles.gradientText}>Results.</span>
         </h1>
         <p style={styles.subtitle}>
-          A collection of high-performance digital engines engineered for
-          scalability and growth.
+          High-performance digital engines engineered for growth.
         </p>
       </header>
 
-      <div style={styles.carouselContainer} ref={containerRef}>
+      {/* Carousel */}
+      <div style={styles.carouselContainer}>
         <button
           onClick={handlePrev}
-          style={{ ...styles.navButton, ...styles.navButtonLeft }}
+          style={{
+            ...styles.navButton,
+            ...styles.navButtonLeft,
+            ...nStyle("outset"),
+          }}
           disabled={isTransitioning}
+          className="nav-btn"
         >
-          <ChevronLeft size={30} />
+          <ChevronLeft size={24} />
         </button>
 
         <div style={styles.cardsWrapper}>
           {circularProjects.map((project, index) => {
-            const position = getCardPosition(index);
+            const pos = getCardPosition(index);
 
             return (
               <motion.div
                 key={`${project.id}-${index}`}
                 style={{
                   ...styles.card,
-                  ...nStyle("outset", position.isCenter ? 1.2 : 0.8),
-                  zIndex: position.zIndex,
-                  opacity: position.opacity,
+                  ...nStyle("outset", pos.isCenter ? 1.2 : 0.6),
+                  zIndex: pos.zIndex,
+                  display: pos.opacity === 0 ? "none" : "flex",
                 }}
                 animate={{
-                  x: position.x,
-                  scale: position.scale,
+                  x: pos.x,
+                  scale: pos.scale,
+                  opacity: pos.opacity,
+                  translateX: "-50%",
                 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 25,
-                }}
-                onClick={() => position.isCenter && setSelectedProject(project)}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                onClick={() => pos.isCenter && setSelectedProject(project)}
               >
                 {project.isFeatured && (
                   <div style={styles.featuredBadge}>
@@ -237,7 +259,7 @@ export default function ProjectsPage() {
                   </div>
                 )}
 
-                <div style={styles.imageWrapper}>
+                <div style={{ ...styles.imageWrapper, ...nStyle("inset") }}>
                   <img
                     src={project.image}
                     alt={project.title}
@@ -248,9 +270,6 @@ export default function ProjectsPage() {
                 <div style={styles.cardOverlay}>
                   <span style={styles.cardCategory}>{project.category}</span>
                   <h3 style={styles.cardTitle}>{project.title}</h3>
-                  {position.isCenter && (
-                    <button style={styles.viewBtn}>Project Details</button>
-                  )}
                 </div>
               </motion.div>
             );
@@ -259,10 +278,15 @@ export default function ProjectsPage() {
 
         <button
           onClick={handleNext}
-          style={{ ...styles.navButton, ...styles.navButtonRight }}
+          style={{
+            ...styles.navButton,
+            ...styles.navButtonRight,
+            ...nStyle("outset"),
+          }}
           disabled={isTransitioning}
+          className="nav-btn"
         >
-          <ChevronRight size={30} />
+          <ChevronRight size={24} />
         </button>
 
         <div style={styles.pagination}>
@@ -271,21 +295,24 @@ export default function ProjectsPage() {
               key={index}
               style={{
                 ...styles.paginationDot,
-                backgroundColor: index === currentIndex ? "#2563eb" : "#cbd5e1",
-                width: index === currentIndex ? "24px" : "10px",
+                ...nStyle(index === currentIndex ? "inset" : "outset"),
+                backgroundColor:
+                  index === currentIndex ? "#2563eb" : themeColor,
+                width: index === currentIndex ? "30px" : "12px",
               }}
               onClick={() => {
-                if (isTransitioning) return;
-                setIsTransitioning(true);
-                setCurrentIndex(index);
-                setTimeout(() => setIsTransitioning(false), 500);
+                if (!isTransitioning) {
+                  setIsTransitioning(true);
+                  setCurrentIndex(index);
+                  setTimeout(() => setIsTransitioning(false), 500);
+                }
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* Popup Modal */}
+      {/* Modal - Unchanged Details Logic */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -296,18 +323,17 @@ export default function ProjectsPage() {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              className="hide-scrollbar"
-              style={styles.modalContent}
+              initial={{ y: 50, scale: 0.9 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 50, scale: 0.9 }}
+              style={{ ...styles.modalContent, backgroundColor: themeColor }}
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                style={styles.closeBtn}
+                style={{ ...styles.closeBtn, ...nStyle("outset") }}
                 onClick={() => setSelectedProject(null)}
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
               <div style={styles.modalGrid}>
@@ -326,62 +352,52 @@ export default function ProjectsPage() {
                   <h2 style={styles.modalTitle}>{selectedProject.title}</h2>
                   <p style={styles.modalDesc}>{selectedProject.description}</p>
 
-                  <div style={styles.sectionTitle}>
-                    <Layers size={16} color="#2563eb" /> Technology Stack
+                  <div style={styles.modalColumns}>
+                    <div>
+                      <div style={styles.sectionTitle}>
+                        <Layers size={16} /> Tech Stack
+                      </div>
+                      <div style={styles.tagContainer}>
+                        {selectedProject.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            style={{ ...styles.tag, ...nStyle("outset", 0.4) }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div style={styles.sectionTitle}>
+                        <CheckCircle2 size={16} /> Features
+                      </div>
+                      <ul style={styles.featureList}>
+                        {selectedProject.features.map((feat) => (
+                          <li key={feat} style={styles.featureItem}>
+                            <div style={styles.featureBullet} /> {feat}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div style={styles.tagContainer}>
-                    {selectedProject.techStack.map((tech) => (
-                      <span key={tech} style={styles.tag}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div style={styles.sectionTitle}>
-                    <CheckCircle2 size={16} color="#059669" /> Key Outcomes
-                  </div>
-                  <ul style={styles.featureList}>
-                    {selectedProject.features.map((feat) => (
-                      <li
-                        key={feat}
-                        style={{
-                          marginBottom: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            background: "#2563eb",
-                          }}
-                        />
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
 
                   <div style={styles.btnGroup}>
-                    <a
+                    <motion.a
                       href={selectedProject.liveLink}
                       target="_blank"
-                      rel="noreferrer"
-                      style={styles.primaryBtn}
+                      style={{ ...styles.primaryBtn, ...nStyle("outset") }}
                     >
-                      <ExternalLink size={18} /> Launch Live Demo
-                    </a>
+                      <ExternalLink size={18} /> Live Demo
+                    </motion.a>
                     {selectedProject.githubLink && (
-                      <a
+                      <motion.a
                         href={selectedProject.githubLink}
                         target="_blank"
-                        rel="noreferrer"
-                        style={styles.secondaryBtn}
+                        style={{ ...styles.secondaryBtn, ...nStyle("outset") }}
                       >
-                        <Github size={18} /> GitHub Repo
-                      </a>
+                        <Github size={18} /> GitHub
+                      </motion.a>
                     )}
                   </div>
                 </div>
@@ -394,109 +410,85 @@ export default function ProjectsPage() {
   );
 }
 
+// --------------------------------------------
+// STYLES
+// --------------------------------------------
 const styles = {
   page: {
     background: "#F5F5F5",
     minHeight: "100vh",
-    padding: "80px 20px",
-    color: "#0f172a",
+    padding: "60px 20px",
+    color: "#444",
     fontFamily: "'Inter', sans-serif",
+    overflowX: "hidden",
   },
   header: {
     textAlign: "center",
-    marginBottom: "60px",
+    marginBottom: "0px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   badge: {
-    padding: "8px 16px",
-    borderRadius: "12px",
-    backgroundColor: "#FFFFFF",
-    boxShadow:
-      "inset 4px 4px 10px rgba(51, 65, 85, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.5)",
-    fontSize: "10px",
+    padding: "10px 20px",
+    borderRadius: "20px",
+    fontSize: "11px",
     fontWeight: "800",
     textTransform: "uppercase",
-    letterSpacing: "2px",
-    color: "#64748b",
+    letterSpacing: "1.5px",
+    color: "#777",
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    marginBottom: "20px",
-    border: "1.5px solid #E2E8F0",
+    marginTop: "40px",
+    marginBottom: "10px",
   },
   title: {
-    fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+    fontSize: "4rem",
     fontWeight: "900",
-    letterSpacing: "-2px",
     margin: "0",
-    color: "#0f172a",
+    color: "#31344b",
+    letterSpacing: "-1px",
   },
   gradientText: {
-    background: "linear-gradient(to right, #2563eb, #06b6d4, #7c3aed)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
+    color: "#2563eb",
   },
   subtitle: {
-    color: "#64748b",
-    fontSize: "18px",
-    marginTop: "15px",
-    maxWidth: "600px",
-    lineHeight: "1.6",
-    fontWeight: "500",
+    color: "#777",
+    fontSize: "1.1rem",
+    marginTop: "10px",
+    maxWidth: "500px",
   },
   carouselContainer: {
-    maxWidth: "1400px",
+    maxWidth: "1200px",
     margin: "0 auto",
     position: "relative",
-    padding: "40px 0 80px",
+    height: "600px",
+    display: "flex",
+    alignItems: "center",
   },
   cardsWrapper: {
     position: "relative",
-    height: "550px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    perspective: "1200px",
+    width: "100%",
+    height: "500px",
+    perspective: "1000px",
   },
   card: {
     position: "absolute",
-    width: "380px",
-    height: "520px",
-    borderRadius: "45px",
-    overflow: "hidden",
-    cursor: "pointer",
+    width: "min(90%, 360px)",
+    height: "400px",
+    borderRadius: "40px",
+    padding: "20px",
     left: "50%",
-    marginLeft: "-190px",
-    padding: "15px",
+    flexDirection: "column",
+    cursor: "pointer",
   },
   imageWrapper: {
     width: "100%",
-    height: "100%",
-    borderRadius: "32px",
+    height: "240px",
+    borderRadius: "25px",
     overflow: "hidden",
-    boxShadow:
-      "inset 6px 6px 12px rgba(51, 65, 85, 0.1), inset -6px -6px 12px rgba(255, 255, 255, 0.8)",
-    backgroundColor: "#f1f5f9",
-  },
-  featuredBadge: {
-    position: "absolute",
-    top: "30px",
-    left: "30px",
-    zIndex: 5,
-    background: "linear-gradient(to right, #1e293b, #0f172a)",
-    color: "#fff",
-    padding: "6px 14px",
-    borderRadius: "100px",
-    fontSize: "10px",
-    fontWeight: "900",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    display: "flex",
-    alignItems: "center",
-    gap: "6px",
-    boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+    marginBottom: "20px",
   },
   cardImage: {
     width: "100%",
@@ -504,237 +496,177 @@ const styles = {
     objectFit: "cover",
   },
   cardOverlay: {
-    position: "absolute",
-    bottom: "15px",
-    left: "15px",
-    right: "15px",
-    padding: "30px",
-    background:
-      "linear-gradient(to top, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8) 60%, transparent)",
-    borderRadius: "0 0 32px 32px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "5px",
+    padding: "10px",
+    textAlign: "center",
   },
   cardCategory: {
-    fontSize: "10px",
+    fontSize: "11px",
     textTransform: "uppercase",
-    letterSpacing: "2px",
-    color: "#64748b",
-    fontWeight: "800",
+    color: "#2563eb",
+    fontWeight: "bold",
+    letterSpacing: "1px",
   },
   cardTitle: {
-    fontSize: "24px",
-    margin: "0",
-    fontWeight: "900",
-    color: "#0f172a",
-    letterSpacing: "-0.5px",
-  },
-  viewBtn: {
-    marginTop: "15px",
-    background: "#0f172a",
-    border: "none",
-    color: "#fff",
-    padding: "12px 24px",
-    borderRadius: "16px",
-    fontSize: "12px",
+    fontSize: "22px",
     fontWeight: "800",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    width: "fit-content",
-    cursor: "pointer",
-    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+    color: "#31344b",
+    margin: "10px 0",
+  },
+  featuredBadge: {
+    position: "absolute",
+    top: "35px",
+    left: "35px",
+    background: "#31344b",
+    color: "#fff",
+    padding: "5px 12px",
+    borderRadius: "20px",
+    fontSize: "10px",
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    gap: "5px",
+    zIndex: 2,
   },
   navButton: {
-    position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    width: "60px",
-    height: "60px",
+    width: "55px",
+    height: "55px",
     borderRadius: "50%",
-    background: "#FFFFFF",
-    border: "1.5px solid #E2E8F0",
-    color: "#64748b",
+    border: "none",
+    color: "#31344b",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer",
-    zIndex: 10,
-    boxShadow:
-      "10px 10px 20px rgba(51, 65, 85, 0.1), -10px -10px 20px rgba(255, 255, 255, 1)",
-    transition: "all 0.3s ease",
+    zIndex: 20,
+    position: "absolute",
   },
-  navButtonLeft: { left: "40px" },
-  navButtonRight: { right: "40px" },
+  navButtonLeft: { left: "10px" },
+  navButtonRight: { right: "10px" },
   pagination: {
     position: "absolute",
-    bottom: "0",
+    bottom: "10px",
     left: "50%",
     transform: "translateX(-50%)",
     display: "flex",
-    gap: "10px",
-    zIndex: 10,
+    gap: "12px",
   },
   paginationDot: {
-    height: "10px",
-    borderRadius: "50px",
+    height: "12px",
+    borderRadius: "20px",
     border: "none",
     cursor: "pointer",
     transition: "all 0.3s ease",
   },
-
   modalBackdrop: {
     position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    background: "rgba(15, 23, 42, 0.8)",
-    backdropFilter: "blur(12px)",
+    background: "#F5F5F5",
+    backdropFilter: "blur(10px)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
-    padding: "20px",
+    padding: "15px",
   },
   modalContent: {
-    background: "#FFFFFF",
     width: "100%",
-    maxWidth: "1100px",
+    maxWidth: "1000px",
     maxHeight: "90vh",
-    borderRadius: "45px",
+    borderRadius: "40px",
     overflowY: "auto",
     position: "relative",
-    border: "1.5px solid #E2E8F0",
-    boxShadow: "0 40px 100px rgba(51, 65, 85, 0.2)",
-  },
-  closeBtn: {
-    position: "absolute",
-    top: "30px",
-    right: "30px",
-    background: "#FFFFFF",
-    border: "1.5px solid #E2E8F0",
-    color: "#64748b",
-    width: "50px",
-    height: "50px",
-    borderRadius: "50%",
-    cursor: "pointer",
-    zIndex: 10,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow:
-      "6px 6px 12px rgba(51, 65, 85, 0.1), -6px -6px 12px rgba(255, 255, 255, 1)",
+    padding: "30px",
+    boxShadow: "20px 20px 60px #babecc, -20px -20px 60px #ffffff",
   },
   modalGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(450px, 1fr))",
-  },
-  modalMedia: {
-    width: "100%",
-    height: "100%",
-    minHeight: "500px",
-    background: "#f8fafc",
-    padding: "20px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gap: "30px",
   },
   modalImg: {
     width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    borderRadius: "32px",
-    boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+    borderRadius: "20px",
+    boxShadow: "inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff",
   },
-  modalDetails: {
-    padding: "60px",
+  closeBtn: {
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "none",
+    cursor: "pointer",
+    zIndex: 100,
+  },
+  tag: {
+    padding: "6px 15px",
+    borderRadius: "15px",
+    fontSize: "12px",
+    fontWeight: "bold",
+    color: "#555",
+  },
+  primaryBtn: {
+    padding: "12px 25px",
+    borderRadius: "15px",
+    textDecoration: "none",
+    fontWeight: "bold",
+    color: "#2563eb",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+  },
+  secondaryBtn: {
+    padding: "12px 25px",
+    borderRadius: "15px",
+    textDecoration: "none",
+    fontWeight: "bold",
+    color: "#31344b",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
   },
   modalCategory: {
     color: "#2563eb",
-    fontSize: "12px",
-    fontWeight: "900",
-    letterSpacing: "2px",
+    fontWeight: "bold",
     textTransform: "uppercase",
+    fontSize: "12px",
   },
-  modalTitle: {
-    fontSize: "42px",
-    margin: "15px 0",
-    fontWeight: "900",
-    color: "#0f172a",
-    letterSpacing: "-1.5px",
-  },
-  modalDesc: {
-    color: "#475569",
-    lineHeight: "1.8",
-    fontSize: "16px",
-    marginBottom: "35px",
-    fontWeight: "500",
+  modalTitle: { fontSize: "32px", margin: "10px 0", color: "#31344b" },
+  modalDesc: { color: "#666", lineHeight: "1.6" },
+  modalColumns: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "20px",
+    margin: "25px 0",
   },
   sectionTitle: {
+    fontWeight: "800",
     display: "flex",
     alignItems: "center",
-    gap: "12px",
+    gap: "8px",
+    marginBottom: "10px",
+  },
+  tagContainer: { display: "flex", flexWrap: "wrap", gap: "8px" },
+  featureList: { listStyle: "none", padding: 0 },
+  featureItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    marginBottom: "8px",
     fontSize: "14px",
-    fontWeight: "800",
-    marginBottom: "20px",
-    color: "#0f172a",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
   },
-  tagContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "10px",
-    marginBottom: "35px",
+  featureBullet: {
+    width: "6px",
+    height: "6px",
+    background: "#2563eb",
+    borderRadius: "50%",
   },
-  tag: {
-    background: "#f1f5f9",
-    padding: "8px 18px",
-    borderRadius: "12px",
-    fontSize: "12px",
-    fontWeight: "700",
-    color: "#475569",
-    border: "1.5px solid #e2e8f0",
-  },
-  featureList: {
-    paddingLeft: "0",
-    color: "#475569",
-    fontSize: "15px",
-    marginBottom: "45px",
-    listStyle: "none",
-    fontWeight: "600",
-  },
-  btnGroup: {
-    display: "flex",
-    gap: "15px",
-  },
-  primaryBtn: {
-    background: "linear-gradient(145deg, #1e293b, #0f172a)",
-    color: "#fff",
-    padding: "18px 32px",
-    borderRadius: "20px",
-    textDecoration: "none",
-    fontWeight: "800",
-    fontSize: "13px",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    boxShadow: "0 20px 40px rgba(15, 23, 42, 0.2)",
-  },
-  secondaryBtn: {
-    background: "#FFFFFF",
-    color: "#0f172a",
-    padding: "18px 32px",
-    borderRadius: "20px",
-    textDecoration: "none",
-    fontWeight: "800",
-    fontSize: "13px",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    border: "1.5px solid #E2E8F0",
-    boxShadow: "10px 10px 20px rgba(51, 65, 85, 0.05)",
-  },
+  btnGroup: { display: "flex", gap: "15px" },
 };
