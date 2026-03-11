@@ -7,12 +7,7 @@ import {
   RefreshCw,
   ShieldCheck,
   ArrowRight,
-  Activity,
   Cpu,
-  Code2,
-  Terminal,
-  Globe,
-  Layers,
   Settings,
   CheckCircle2,
 } from "lucide-react";
@@ -173,13 +168,16 @@ const SERVICE_INFRASTRUCTURE = [
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
-    outset: `${8 * intensity}px ${8 * intensity}px ${16 * intensity}px rgba(5, 5, 7, 0.9), -${5 * intensity}px -${5 * intensity}px ${10 * intensity}px rgba(35, 35, 45, 0.25)`,
-    inset: `inset 3px 3px 6px rgba(0,0,0,0.7), inset -1px -1px 4px rgba(255,255,255,0.05)`,
+    // Stronger, clearer neumorphism contrast
+    outset: `${14 * intensity}px ${14 * intensity}px ${30 * intensity}px rgba(100, 116, 139, 0.5), -${12 * intensity}px -${12 * intensity}px ${28 * intensity}px rgba(255, 255, 255, 1)`,
+    inset:
+      "inset 6px 6px 14px rgba(100, 116, 139, 0.4), inset -6px -6px 14px rgba(255, 255, 255, 1)",
   };
+
   return {
-    background: "linear-gradient(145deg, #0f1116, #12151c)",
+    backgroundColor: "#FFFFFF", // brighter card for stronger separation
     boxShadow: shadows[type],
-    border: "1px solid rgba(255,255,255,0.03)",
+    border: "1.5px solid rgba(100, 116, 139, 0.35)", // stronger edge definition
   };
 };
 
@@ -194,23 +192,23 @@ const ServiceModule = ({ node, color, delay }) => (
   >
     <div className="flex justify-between items-start mb-6">
       <div className="space-y-1">
-        <div className="text-[9px] font-black text-gray-600 tracking-[0.3em]">
+        <div className="text-[9px] font-black text-gray-400 tracking-[0.3em]">
           {node.id}
         </div>
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">
+          <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest">
             Active_Node
           </span>
         </div>
       </div>
-      <div className="p-3 rounded-2xl shadow-inner" style={nStyle("inset")}>
+      <div className="p-3 rounded-2xl" style={nStyle("inset")}>
         <CheckCircle2 size={18} style={{ color }} />
       </div>
     </div>
 
     <div>
-      <h4 className="text-xl font-bold text-white mb-4 tracking-tight group-hover:text-blue-400 transition-colors">
+      <h4 className="text-xl font-bold text-gray-800 mb-4 tracking-tight group-hover:text-blue-600 transition-colors">
         {node.title}
       </h4>
       <p className="text-sm text-gray-500 leading-relaxed font-medium">
@@ -218,13 +216,13 @@ const ServiceModule = ({ node, color, delay }) => (
       </p>
     </div>
 
-    <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
-      <span className="text-[9px] font-black text-gray-600 uppercase tracking-widest">
+    <div className="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between">
+      <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
         Spec_Verified
       </span>
       <ArrowRight
         size={16}
-        className="text-gray-800 group-hover:text-white transition-all transform group-hover:translate-x-1"
+        className="text-gray-300 group-hover:text-gray-900 transition-all transform group-hover:translate-x-1"
       />
     </div>
   </motion.div>
@@ -232,7 +230,7 @@ const ServiceModule = ({ node, color, delay }) => (
 
 const ServicesPage = () => {
   return (
-    <div className="bg-[#000000] min-h-screen text-gray-100 font-sans pb-32">
+    <div className="bg-[#F5F5F5] min-h-screen text-gray-900 font-sans pb-32">
       {/* 1. TECHNICAL HERO */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
@@ -243,21 +241,21 @@ const ServicesPage = () => {
           >
             <div className="max-w-3xl">
               <motion.div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl mb-6 shadow-inner"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl mb-6"
                 style={nStyle("inset")}
               >
-                <Cpu size={14} className="text-emerald-500 animate-spin-slow" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
+                <Cpu size={14} className="text-emerald-600 animate-spin-slow" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">
                   Service Infrastructure V2.4
                 </span>
               </motion.div>
-              <h1 className="text-3xl md:text-5xl font-black tracking-tighter leading-[0.85] mb-8 uppercase">
+              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-8 uppercase text-gray-900">
                 Technical{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500">
                   Capabilities.
                 </span>
               </h1>
-              <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl">
+              <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl">
                 A comprehensive suite of performance-driven digital services
                 engineered to scale your business operations and dominate the
                 digital marketplace.
@@ -269,34 +267,34 @@ const ServicesPage = () => {
               className="hidden lg:block w-72 p-8 rounded-[40px]"
               style={nStyle("outset", 1.2)}
             >
-              <div className="space-y-4 font-mono text-[10px] text-gray-600">
+              <div className="space-y-4 font-mono text-[10px] text-gray-500">
                 <div className="flex justify-between">
                   <span>CPU_LOAD:</span>{" "}
-                  <span className="text-emerald-500">OPTIMAL</span>
+                  <span className="text-emerald-600 font-bold">OPTIMAL</span>
                 </div>
                 <div className="flex justify-between">
                   <span>SERVERS:</span>{" "}
-                  <span className="text-emerald-500">99.9% UP</span>
+                  <span className="text-emerald-600 font-bold">99.9% UP</span>
                 </div>
                 <div className="flex justify-between">
                   <span>DB_LATENCY:</span>{" "}
-                  <span className="text-blue-500">12ms</span>
+                  <span className="text-blue-600 font-bold">12ms</span>
                 </div>
-                <div className="pt-2 border-t border-white/5 text-gray-400">
+                <div className="pt-2 border-t border-gray-200 text-gray-400">
                   READY_FOR_IGNITION
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[150px] pointer-events-none" />
+        {/* Adjusted Glow for Light Theme */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-400/10 blur-[150px] pointer-events-none opacity-50" />
       </section>
 
       {/* 2. THE CAPABILITY MATRIX */}
       <section className="max-w-7xl mx-auto px-6 space-y-40">
         {SERVICE_INFRASTRUCTURE.map((sector, sIdx) => (
           <div key={sIdx} className="relative">
-            {/* Sector Header - More Advanced Design */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
               <div className="flex items-center gap-6">
                 <div
@@ -306,17 +304,17 @@ const ServicesPage = () => {
                   <sector.icon size={32} style={{ color: sector.color }} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-black uppercase tracking-[0.4em] text-gray-600 mb-2">
+                  <div className="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-2">
                     {sector.tag}
                   </div>
-                  <h2 className="text-2xl md:text-4xl font-black tracking-tighter text-white uppercase">
+                  <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 uppercase">
                     {sector.category}
                   </h2>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-[10px] font-bold text-gray-500 uppercase">
+              <div className="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
                 <span>Capacity: Full</span>
-                <div className="w-12 h-1 bg-gray-900 rounded-full overflow-hidden">
+                <div className="w-12 h-1 bg-gray-200 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ x: "-100%" }}
                     whileInView={{ x: "0%" }}
@@ -326,7 +324,6 @@ const ServicesPage = () => {
               </div>
             </div>
 
-            {/* Sub-Service Modules Grid - Increased Verticality */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {sector.nodes.map((node, nIdx) => (
                 <ServiceModule
@@ -338,12 +335,12 @@ const ServicesPage = () => {
               ))}
 
               {/* Specialized Custom Node */}
-              <div className="p-8 rounded-[40px] flex flex-col justify-center items-center text-center border border-dashed border-gray-800 opacity-30 hover:opacity-100 transition-all cursor-pointer">
-                <Settings className="mb-4 text-gray-500" size={32} />
-                <h4 className="font-bold text-gray-400 uppercase tracking-widest text-xs">
+              <div className="p-8 rounded-[40px] flex flex-col justify-center items-center text-center border border-dashed border-gray-300 opacity-60 hover:opacity-100 transition-all cursor-pointer">
+                <Settings className="mb-4 text-gray-400" size={32} />
+                <h4 className="font-bold text-gray-500 uppercase tracking-widest text-xs">
                   Custom Requirement?
                 </h4>
-                <p className="text-[10px] mt-2 text-gray-600">
+                <p className="text-[10px] mt-2 text-gray-400">
                   We build specialized technical frameworks for unique business
                   logic.
                 </p>

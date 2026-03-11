@@ -83,8 +83,8 @@ export const Navbar = () => {
       variants={navFadeIn}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "py-3 bg-[#0c0e12]/95 backdrop-blur-xl"
-          : "py-5 bg-[#0c0e12]/50"
+          ? "py-3 bg-[#000000]/95 backdrop-blur-xl"
+          : "py-5 bg-[#000000]/50"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10">

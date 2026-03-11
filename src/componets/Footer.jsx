@@ -69,7 +69,7 @@ const Footer = () => {
       ref={footerRef}
       className="relative pt-20 pb-10 px-4 z-30 overflow-hidden"
       style={{
-        background: "#0c0e12",
+        background: "#000000",
       }}
     >
       {/* Animated floating elements */}
