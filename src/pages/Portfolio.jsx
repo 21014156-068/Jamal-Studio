@@ -470,13 +470,13 @@ const styles = {
   cardsWrapper: {
     position: "relative",
     width: "100%",
-    height: "500px",
+    height: "450px",
     perspective: "1000px",
   },
   card: {
     position: "absolute",
     width: "min(90%, 360px)",
-    height: "400px",
+    height: "430px",
     borderRadius: "40px",
     padding: "20px",
     left: "50%",
@@ -556,6 +556,7 @@ const styles = {
     border: "none",
     cursor: "pointer",
     transition: "all 0.3s ease",
+    marginTop: "0px",
   },
   modalBackdrop: {
     position: "fixed",
