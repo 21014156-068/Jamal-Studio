@@ -62,7 +62,7 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
+      <div className="max-w-7xl mt-20 mx-auto relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* LEFT CONTENT */}
           <motion.div style={{ x: mousePos.x * -0.6, y: mousePos.y * -0.6 }}>
