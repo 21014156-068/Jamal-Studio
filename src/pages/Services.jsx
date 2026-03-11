@@ -246,10 +246,10 @@ const ServicesPage = () => {
               >
                 <Cpu size={14} className="text-emerald-600 animate-spin-slow" />
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">
-                  Service Infrastructure V2.4
+                  Service Infrastructure
                 </span>
               </motion.div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-8 uppercase text-gray-900">
+              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-8 text-gray-900">
                 Technical{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500">
                   Capabilities.
@@ -290,24 +290,27 @@ const ServicesPage = () => {
         {/* Adjusted Glow for Light Theme */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-400/10 blur-[150px] pointer-events-none opacity-50" />
       </section>
-
-      {/* 2. THE CAPABILITY MATRIX */}
+      {/* 
+    /* 2. THE CAPABILITY MATRIX */}
       <section className="max-w-7xl mx-auto px-6 space-y-40">
         {SERVICE_INFRASTRUCTURE.map((sector, sIdx) => (
           <div key={sIdx} className="relative">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
               <div className="flex items-center gap-6">
                 <div
-                  className="w-20 h-20 rounded-[30px] flex items-center justify-center"
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[30px] flex items-center justify-center"
                   style={nStyle("outset", 1.4)}
                 >
-                  <sector.icon size={32} style={{ color: sector.color }} />
+                  <sector.icon
+                    className="w-6 h-6 md:w-8 md:h-8"
+                    style={{ color: sector.color }}
+                  />
                 </div>
                 <div>
                   <div className="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-2">
                     {sector.tag}
                   </div>
-                  <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 uppercase">
+                  <h2 className="text-2xl md:text-4xl font-black tracking-tighter text-gray-900">
                     {sector.category}
                   </h2>
                 </div>
@@ -335,7 +338,7 @@ const ServicesPage = () => {
               ))}
 
               {/* Specialized Custom Node */}
-              <div className="p-8 rounded-[40px] flex flex-col justify-center items-center text-center border border-dashed border-gray-300 opacity-60 hover:opacity-100 transition-all cursor-pointer">
+              <div className="p-8 rounded-[40px] flex flex-col justify-center items-center text-center border border-dashed border-gray-300 opacity-70 hover:opacity-100 transition-all cursor-pointer">
                 <Settings className="mb-4 text-gray-400" size={32} />
                 <h4 className="font-bold text-gray-500 uppercase tracking-widest text-xs">
                   Custom Requirement?
