@@ -638,8 +638,8 @@ const styles = {
     zIndex: 20,
     position: "absolute",
   },
-  navButtonLeft: { left: "-15px" },
-  navButtonRight: { right: "-15px" },
+  navButtonLeft: { left: "-5px" },
+  navButtonRight: { right: "-5px" },
   pagination: {
     position: "absolute",
     bottom: "10px",
