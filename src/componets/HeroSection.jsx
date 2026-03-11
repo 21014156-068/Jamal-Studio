@@ -5,19 +5,16 @@ import { DEMO_TESTIMONIALS, SOCIAL_LINKS } from "./data";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
-    outset: `
-      ${6 * intensity}px ${6 * intensity}px ${12 * intensity}px rgba(5, 5, 7, 0.8),
-      -${4 * intensity}px -${4 * intensity}px ${8 * intensity}px rgba(35, 35, 45, 0.2)
-    `,
-    inset: `
-      inset 2px 2px 5px rgba(0,0,0,0.7), 
-      inset -1px -1px 3px rgba(255,255,255,0.05)
-    `,
+    // Finalized HD Neumorphic Logic
+    outset: `${14 * intensity}px ${14 * intensity}px ${30 * intensity}px rgba(51, 65, 85, 0.15), -${12 * intensity}px -${12 * intensity}px ${28 * intensity}px rgba(255, 255, 255, 0.8)`,
+    inset:
+      "inset 6px 6px 14px rgba(51, 65, 85, 0.1), inset -6px -6px 14px rgba(255, 255, 255, 0.5)",
   };
+
   return {
-    background: "linear-gradient(145deg, #0c0e12, #10131a)",
+    backgroundColor: "#FFFFFF",
     boxShadow: shadows[type],
-    border: "1px solid rgba(255,255,255,0.03)",
+    border: "1.5px solid #E2E8F0",
   };
 };
 
@@ -57,42 +54,38 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#000000] text-gray-100 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
+    <section className="relative min-h-screen bg-slate-50 text-slate-900 overflow-hidden flex flex-col items-center justify-center py-20 px-6">
+      {/* ADAPTIVE GLOW BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 blur-[120px] rounded-full"
-        />
-        <motion.div
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.12, 0.1] }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-900/10 blur-[120px] rounded-full"
+          animate={{ opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-400/20 via-cyan-400/20 to-purple-400/20 blur-[150px] pointer-events-none"
         />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* /* LEFT CONTENT */}
+          {/* LEFT CONTENT */}
           <motion.div style={{ x: mousePos.x * -0.6, y: mousePos.y * -0.6 }}>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl mt-5 mb-6 shadow-inner"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl mt-5 mb-6"
               style={nStyle("inset")}
             >
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-bold tracking-widest uppercase text-gray-400">
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                 Jamal Studio — Performance First
               </span>
             </motion.div>
 
-            <motion.h1 className="text-4xl md:text-5xl font-bold leading-[1.1] mb-6 min-h-[100px] md:min-h-[140px]">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">
+            <motion.h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-8">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-cyan-600">
                 {typingText}
               </span>
               {typingText.length < fullHeadline.length && (
-                <span className="inline-block w-1 h-10 md:h-12 bg-gray-500 ml-2 animate-pulse align-middle" />
+                <span className="inline-block w-1 h-10 md:h-12 bg-blue-600 ml-2 animate-pulse align-middle" />
               )}
             </motion.h1>
 
@@ -100,7 +93,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-lg text-gray-400 max-w-lg mb-10 leading-relaxed"
+              className="text-lg text-slate-600 max-w-lg mb-10 leading-relaxed font-medium"
             >
               High-performance development and strategic e-commerce solutions
               crafted to convert visitors into loyal customers.
@@ -108,23 +101,24 @@ const HeroSection = () => {
 
             <div className="flex flex-wrap gap-6">
               <motion.button
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, y: -4 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() =>
                   window.open("https://wa.me/923331482815", "_blank")
                 }
-                className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-[10px] sm:text-xs md:text-base text-white transition-all shadow-lg"
+                className="flex-1 whitespace-nowrap px-8 py-4 rounded-2xl font-black text-xs tracking-widest text-white transition-all"
                 style={{
-                  background: "linear-gradient(145deg, #1a1d24, #10131a)",
+                  background: "linear-gradient(145deg, #1a1d24, #000000)",
                   ...nStyle("outset"),
                 }}
               >
-                <MessageCircle size={16} className="hidden sm:block" />
+                <MessageCircle size={16} className="mr-2 inline" />
                 Contact Us
               </motion.button>
+
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                className="flex-1 whitespace-nowrap px-3 md:px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-white transition-colors text-[10px] sm:text-xs md:text-base"
+                whileHover={{ scale: 1.02, y: -4 }}
+                className="flex-1 whitespace-nowrap px-8 py-4 rounded-2xl font-black text-xs tracking-widest text-slate-600 hover:text-slate-900 transition-colors"
                 style={nStyle("outset")}
               >
                 View our Work
@@ -132,7 +126,7 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT CONTENT: FIXED TESTIMONIAL CARD */}
+          {/* RIGHT CONTENT: TESTIMONIAL CARD */}
           <motion.div
             className="relative"
             style={{
@@ -143,23 +137,19 @@ const HeroSection = () => {
             }}
           >
             <motion.div
-              className="relative z-20 p-8 md:p-10 rounded-[32px] overflow-hidden"
+              className="relative z-20 p-8 md:p-10 rounded-[45px] overflow-hidden"
               style={nStyle("outset", 1.2)}
-              // Ensures smooth resizing of the card container
             >
               <div
-                className="absolute -top-0 left-6 px-3 py-1 rounded-xl text-sm font-medium z-30"
+                className="absolute -top-0 left-6 px-4 py-1.5 rounded-xl text-[10px] font-black tracking-widest uppercase z-30"
                 style={{
-                  background: "linear-gradient(145deg, #0c0e12, #10131a)",
-                  boxShadow:
-                    "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
-                  color: "#e1e1e1",
+                  ...nStyle("inset"),
+                  color: "#334155",
                 }}
               >
                 Client Feedback
               </div>
 
-              {/* Fixed height wrapper to prevent card jumping on testimonial change */}
               <div className="h-[280px] md:h-[260px] flex flex-col justify-between overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -171,7 +161,7 @@ const HeroSection = () => {
                     className="pt-6 flex flex-col"
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/5 shadow-lg flex-shrink-0">
+                      <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-inner flex-shrink-0 border-2 border-slate-100">
                         <img
                           src={DEMO_TESTIMONIALS[currentTestimonial].img}
                           alt={DEMO_TESTIMONIALS[currentTestimonial].name}
@@ -179,7 +169,7 @@ const HeroSection = () => {
                         />
                       </div>
                       <div>
-                        <div className="font-bold text-gray-100">
+                        <div className="font-bold text-slate-900">
                           {DEMO_TESTIMONIALS[currentTestimonial].name}
                         </div>
                         <div className="flex mt-1">
@@ -194,13 +184,13 @@ const HeroSection = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-300 italic leading-relaxed text-sm md:text-base mb-8 line-clamp-3 flex-grow">
+                    <p className="text-slate-600 italic leading-relaxed text-sm md:text-base mb-8 line-clamp-3 flex-grow font-medium">
                       "{DEMO_TESTIMONIALS[currentTestimonial].text}"
                     </p>
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Performance & Managed Grid inside the card */}
+                {/* Performance Stats */}
                 <div className="grid grid-cols-3 gap-2 mt-auto flex-shrink-0">
                   {[
                     {
@@ -221,11 +211,11 @@ const HeroSection = () => {
                   ].map((stat, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-center justify-center py-3 px-1 rounded-xl gap-1"
+                      className="flex flex-col items-center justify-center py-3 px-1 rounded-2xl gap-1"
                       style={nStyle("inset")}
                     >
                       <span className={stat.color}>{stat.icon}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-tighter text-gray-500">
+                      <span className="text-[8px] font-black uppercase tracking-tighter text-slate-400">
                         {stat.label}
                       </span>
                     </div>
@@ -238,7 +228,7 @@ const HeroSection = () => {
                 {DEMO_TESTIMONIALS.map((_, i) => (
                   <button
                     key={i}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-emerald-500 w-6" : "bg-gray-700"}`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-blue-600 w-6" : "bg-slate-200"}`}
                     onClick={() => setCurrentTestimonial(i)}
                   />
                 ))}
@@ -252,12 +242,12 @@ const HeroSection = () => {
               className="absolute -top-6 -right-6 z-30 p-4 rounded-2xl hidden md:block"
               style={nStyle("outset")}
             >
-              <div className="text-[10px] font-bold text-gray-500 uppercase">
+              <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
                 Speed Score
               </div>
               <div className="flex items-end gap-1">
                 <span className="text-2xl font-black text-emerald-500">99</span>
-                <span className="text-xs font-bold text-gray-600">/100</span>
+                <span className="text-xs font-bold text-slate-400">/100</span>
               </div>
             </motion.div>
           </motion.div>
@@ -278,12 +268,12 @@ const HeroSection = () => {
               rel="noopener noreferrer"
               className="p-4 rounded-2xl transition-all"
               style={nStyle("outset")}
-              whileHover={{ y: -4, scale: 1.05 }}
+              whileHover={{ y: -4, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <s.icon
                 size={22}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-slate-400 hover:text-blue-600 transition-colors"
               />
             </motion.a>
           ))}

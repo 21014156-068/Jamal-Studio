@@ -41,19 +41,16 @@ const Counter = ({ value, suffix = "" }) => {
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
-    outset: `
-      ${6 * intensity}px ${6 * intensity}px ${12 * intensity}px rgba(5, 5, 7, 0.8),
-      -${4 * intensity}px -${4 * intensity}px ${8 * intensity}px rgba(35, 35, 45, 0.2)
-    `,
-    inset: `
-      inset 2px 2px 5px rgba(0,0,0,0.7), 
-      inset -1px -1px 3px rgba(255,255,255,0.05)
-    `,
+    // Finalized HD Neumorphic Logic
+    outset: `${14 * intensity}px ${14 * intensity}px ${30 * intensity}px rgba(51, 65, 85, 0.15), -${12 * intensity}px -${12 * intensity}px ${28 * intensity}px rgba(255, 255, 255, 0.8)`,
+    inset:
+      "inset 6px 6px 14px rgba(51, 65, 85, 0.1), inset -6px -6px 14px rgba(255, 255, 255, 0.5)",
   };
+
   return {
-    background: "linear-gradient(145deg, #0c0e12, #10131a)",
+    backgroundColor: "#FFFFFF",
     boxShadow: shadows[type],
-    border: "1px solid rgba(255,255,255,0.03)",
+    border: "1.5px solid #E2E8F0",
   };
 };
 
@@ -65,72 +62,73 @@ const TrustSection = () => {
       desc: "We don't just build for you; we build with you. Your business growth is the only metric we use to define our success.",
     },
     {
-      icon: <ShieldCheck size={24} className="text-blue-500" />,
+      icon: <ShieldCheck size={24} className="text-blue-600" />,
       title: "Built to Last",
       desc: "Using modern stacks like Next.js and Shopify, we ensure your site remains secure, scalable, and fast for years to come.",
     },
     {
-      icon: <Handshake size={24} className="text-emerald-500" />,
+      icon: <Handshake size={24} className="text-emerald-600" />,
       title: "Strategic Partnership",
       desc: "Consider us your in-house digital department. We provide the technical expertise so you can focus on leading your brand.",
     },
   ];
 
   return (
-    <section className="relative py-24 bg-[#000000] text-gray-100 overflow-hidden">
+    <section className="relative py-24 bg-slate-50 text-slate-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* TOP EMOTIONAL HOOK */}
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-xl mb-6 shadow-inner"
             style={nStyle("inset")}
           >
-            <Rocket size={16} className="text-amber-500" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400">
+            <Rocket size={16} className="text-blue-600" />
+            <span className="text-[10px] font-black tracking-[0.2em] uppercase text-slate-400">
               The Jamal Studio Promise
             </span>
           </motion.div>
 
-          <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">
             More than just{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-cyan-500">
               pixels and code.
             </span>
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
             We understand the late nights and the passion behind your business.
             That’s why we build digital engines that respect your vision and
             drive real results.
           </p>
         </div>
-        {/* /* ENGAGEMENT: IMPACT COUNTERS */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+
+        {/* ENGAGEMENT: IMPACT COUNTERS */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
           {[
             {
               label: "Projects in Progress",
               value: 5,
               suffix: "+",
-              icon: <Trophy className="text-gray-600" />,
+              icon: <Trophy className="text-slate-300" />,
             },
             {
               label: "Uptime Guaranteed",
               value: 99,
               suffix: ".9%",
-              icon: <Timer className="text-gray-600" />,
+              icon: <Timer className="text-slate-300" />,
             },
             {
               label: "Quality Focus",
               value: 100,
               suffix: "%",
-              icon: <Users className="text-gray-600" />,
+              icon: <Users className="text-slate-300" />,
             },
             {
               label: "Years Experience",
               value: 5,
               suffix: "+",
-              icon: <Rocket className="text-gray-600" />,
+              icon: <Rocket className="text-slate-300" />,
             },
           ].map((stat, i) => (
             <motion.div
@@ -138,29 +136,31 @@ const TrustSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-[30px] text-center flex flex-col items-center"
+              className="p-8 rounded-[40px] text-center flex flex-col items-center"
               style={nStyle("outset")}
             >
-              <div className="mb-4 opacity-30">{stat.icon}</div>
-              <div className="text-2xl md:text-4xl font-black text-white mb-2">
+              <div className="mb-4 opacity-50">{stat.icon}</div>
+              <div className="text-3xl md:text-5xl font-black text-slate-900 mb-2">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+              <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                 {stat.label}
               </div>
             </motion.div>
           ))}
         </div>
-        {/* /* TRUST CARDS: EMOTIONAL CONNECTORS */}
+
+        {/* TRUST CARDS: EMOTIONAL CONNECTORS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {trustValues.map((item, i) => (
             <motion.div
               key={i}
-              whileHover={{ y: -10 }}
-              className="p-10 rounded-[40px] relative group overflow-hidden"
-              style={nStyle("outset", 1.2)}
+              whileHover={{ y: -12 }}
+              className="p-10 rounded-[45px] relative group overflow-hidden"
+              style={nStyle("outset", 1.1)}
             >
-              <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-20 transition-opacity">
+              {/* Background watermark icon */}
+              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
                 {item.icon}
               </div>
 
@@ -171,39 +171,42 @@ const TrustSection = () => {
                 {item.icon}
               </div>
 
-              <h3 className="text-xl font-bold text-gray-100 mb-4">
+              <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">
                 {item.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-slate-600 text-sm leading-relaxed text-center font-medium">
                 {item.desc}
               </p>
             </motion.div>
           ))}
         </div>
+
         {/* FINAL TRUST BAR: SECURITY & RELIABILITY */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="mt-24 py-8 px-10 rounded-full flex flex-wrap justify-center items-center gap-10 opacity-40 grayscale"
+          className="mt-24 py-8 px-10 rounded-full flex flex-wrap justify-center items-center gap-10 opacity-60"
           style={nStyle("inset")}
         >
-          <span className="text-sm font-bold flex items-center gap-2 decoration-emerald-500/50">
-            SSL ENCRYPTED
-          </span>
-          <span className="text-sm font-bold flex items-center gap-2 decoration-blue-500/50">
-            24/7 MONITORING
-          </span>
-          <span className="text-sm font-bold flex items-center gap-2  decoration-purple-500/50">
-            WEEKLY BACKUPS
-          </span>
-          <span className="text-sm font-bold flex items-center gap-2 decoration-amber-500/50">
-            SEO OPTIMIZED
-          </span>
+          {[
+            { label: "SSL ENCRYPTED", color: "text-emerald-600" },
+            { label: "24/7 MONITORING", color: "text-blue-600" },
+            { label: "WEEKLY BACKUPS", color: "text-purple-600" },
+            { label: "SEO OPTIMIZED", color: "text-cyan-600" },
+          ].map((badge, idx) => (
+            <span
+              key={idx}
+              className={`text-[10px] font-black flex items-center gap-2 tracking-widest ${badge.color}`}
+            >
+              <div className="w-1 h-1 rounded-full bg-current" />
+              {badge.label}
+            </span>
+          ))}
         </motion.div>
       </div>
 
-      {/* Subtle Background Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_70%)] pointer-events-none" />
+      {/* Subtle Background Adaptive Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)] pointer-events-none" />
     </section>
   );
 };

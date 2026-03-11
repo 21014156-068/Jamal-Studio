@@ -18,9 +18,8 @@ const Home = () => {
       <TrustSection />
       <TestimonialsSection />
       <ProcessSection />
-      <FAQSection />
-
       <ProjectCTA />
+      <FAQSection />
     </div>
   );
 };

@@ -77,7 +77,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="relative py-28 bg-[#0c0e12] text-gray-100 overflow-hidden flex flex-col items-center">
+    <section className="relative py-28 bg-[#000000] text-gray-100 overflow-hidden flex flex-col items-center">
       {/* Header */}
       <div className="text-center mb-16 px-6">
         <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
