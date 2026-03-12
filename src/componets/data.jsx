@@ -14,6 +14,18 @@ import {
   Twitter,
   Zap,
 } from "lucide-react";
+import { FaRobot } from "react-icons/fa";
+import {
+  SiExpress,
+  SiGithub,
+  SiMongodb,
+  SiNodedotjs,
+  SiOpenai,
+  SiReact,
+  SiShopify,
+  SiTailwindcss,
+  SiWordpress,
+} from "react-icons/si";
 
 export const DEMO_TESTIMONIALS = [
   {
@@ -314,5 +326,67 @@ export const SERVICE_INFRASTRUCTURE = [
         desc: "Automated daily cloud backups and fail-safe disaster recovery protocols for total peace of mind.",
       },
     ],
+  },
+];
+
+export const SKILL_BADGES = [
+  {
+    name: "React.js",
+    icon: <SiReact size={21} />,
+    color: "from-blue-500/20 to-cyan-400/20",
+    iconColor: "#61DAFB",
+  },
+  {
+    name: "Node.js",
+    icon: <SiNodedotjs size={21} />,
+    color: "from-green-500/20 to-emerald-400/20",
+    iconColor: "#339933",
+  },
+  {
+    name: "Express.js",
+    icon: <SiExpress size={21} />,
+    color: "from-gray-400/20 to-gray-300/20",
+    iconColor: "#000000",
+  },
+  {
+    name: "MongoDB",
+    icon: <SiMongodb size={21} />,
+    color: "from-green-600/20 to-green-400/20",
+    iconColor: "#47A248",
+  },
+  {
+    name: "Tailwind",
+    icon: <SiTailwindcss size={21} />,
+    color: "from-cyan-500/20 to-blue-400/20",
+    iconColor: "#06B6D4",
+  },
+  {
+    name: "Shopify",
+    icon: <SiShopify size={21} />,
+    color: "from-amber-600/20 to-amber-400/20",
+    iconColor: "#96BF48",
+  },
+  {
+    name: "WordPress",
+    icon: <SiWordpress size={21} />,
+    color: "from-blue-700/20 to-blue-500/20",
+    iconColor: "#21759B",
+  },
+  {
+    name: "Git & GitHub",
+    icon: <SiGithub size={21} />,
+    color: "from-gray-800/20 to-gray-600/20",
+    iconColor: "#181717",
+  },
+  {
+    name: "AI Tools",
+    icon: (
+      <div className="flex gap-1">
+        <SiOpenai size={18} />
+        <FaRobot size={16} />
+      </div>
+    ),
+    color: "from-purple-500/20 to-pink-400/20",
+    iconColor: "#412991",
   },
 ];

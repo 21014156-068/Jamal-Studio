@@ -7,6 +7,7 @@ import PortfolioPage from "./pages/Portfolio";
 import ContactPage from "./pages/Contact";
 import BlogPage from "./pages/Blogs";
 import SingleBlogPost from "./pages/SingleBlog";
+import AboutPage from "./pages/About";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/single-blog" element={<SingleBlogPost />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
         <Footer />
       </div>
