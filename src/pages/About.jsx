@@ -14,18 +14,22 @@ import {
 import { FaRobot } from "react-icons/fa";
 import {
   Zap,
-  Linkedin,
-  Github,
-  Twitter,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  Monitor,
+  Target,
+  Award,
+  ShieldCheck,
   TrendingUp,
-  Code2,
-  Heart,
-  Globe,
-  ShieldAlert,
-  Microscope,
-  MousePointer2,
+  Cpu,
+  CheckCircle2,
 } from "lucide-react";
-import { SKILL_BADGES } from "../componets/data";
+
+// --------------------------------------------
+// FINALIZED HD NEUMORPHIC STYLE
+// --------------------------------------------
+const themeColor = "#e0e5ec";
 
 const nStyle = (type = "outset", intensity = 1) => {
   const shadows = {
@@ -33,12 +37,77 @@ const nStyle = (type = "outset", intensity = 1) => {
     inset: `inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff`,
   };
   return {
-    backgroundColor: "#e0e5ec",
+    backgroundColor: themeColor,
     boxShadow: shadows[type],
     border: "1px solid rgba(255, 255, 255, 0.2)",
     transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   };
 };
+
+// --------------------------------------------
+// DATA
+// --------------------------------------------
+const SKILL_BADGES = [
+  {
+    name: "React.js",
+    icon: <SiReact size={21} />,
+    color: "from-blue-500/20 to-cyan-400/20",
+    iconColor: "#61DAFB",
+  },
+  {
+    name: "Node.js",
+    icon: <SiNodedotjs size={21} />,
+    color: "from-green-500/20 to-emerald-400/20",
+    iconColor: "#339933",
+  },
+  {
+    name: "Express.js",
+    icon: <SiExpress size={21} />,
+    color: "from-gray-400/20 to-gray-300/20",
+    iconColor: "#000000",
+  },
+  {
+    name: "MongoDB",
+    icon: <SiMongodb size={21} />,
+    color: "from-green-600/20 to-green-400/20",
+    iconColor: "#47A248",
+  },
+  {
+    name: "Tailwind",
+    icon: <SiTailwindcss size={21} />,
+    color: "from-cyan-500/20 to-blue-400/20",
+    iconColor: "#06B6D4",
+  },
+  {
+    name: "Shopify",
+    icon: <SiShopify size={21} />,
+    color: "from-amber-600/20 to-amber-400/20",
+    iconColor: "#96BF48",
+  },
+  {
+    name: "WordPress",
+    icon: <SiWordpress size={21} />,
+    color: "from-blue-700/20 to-blue-500/20",
+    iconColor: "#21759B",
+  },
+  {
+    name: "Git & GitHub",
+    icon: <SiGithub size={21} />,
+    color: "from-gray-800/20 to-gray-600/20",
+    iconColor: "#181717",
+  },
+  {
+    name: "AI Tools",
+    icon: (
+      <div className="flex gap-1">
+        <SiOpenai size={18} />
+        <FaRobot size={16} />
+      </div>
+    ),
+    color: "from-purple-500/20 to-pink-400/20",
+    iconColor: "#412991",
+  },
+];
 
 const PROGRESS_SKILLS = [
   { name: "React.js", percent: 90 },
@@ -50,172 +119,442 @@ const PROGRESS_SKILLS = [
   { name: "WordPress", percent: 70 },
 ];
 
+const teamMembers = [
+  {
+    id: "tm-001",
+    name: "Ayesha Khan",
+    role: "Founder & CEO",
+    tagline: "Product vision, strategy, and execution.",
+    photo:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: true,
+  },
+  {
+    id: "tm-002",
+    name: "Daniel Carter",
+    role: "CTO",
+    tagline: "Architecture, scalability, and clean engineering.",
+    photo:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-003",
+    name: "Fatima Noor",
+    role: "Product Designer",
+    tagline: "Human-centered UI/UX with pixel-perfect visuals.",
+    photo:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-004",
+    name: "Muhammad Ali",
+    role: "Frontend Engineer",
+    tagline: "React, animations, and performance-focused UI.",
+    photo:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-005",
+    name: "Sophia Martinez",
+    role: "Backend Engineer",
+    tagline: "APIs, databases, auth, and system reliability.",
+    photo:
+      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-006",
+    name: "Omar Farooq",
+    role: "DevOps Engineer",
+    tagline: "CI/CD pipelines, cloud infra, and monitoring.",
+    photo:
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-007",
+    name: "Hira Sheikh",
+    role: "QA Engineer",
+    tagline: "Automation testing and quality assurance.",
+    photo:
+      "https://images.unsplash.com/photo-1550525811-e5869dd03032?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-008",
+    name: "James Wilson",
+    role: "Marketing Lead",
+    tagline: "Brand growth, storytelling, and go-to-market.",
+    photo:
+      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+];
+
 const AboutPage = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 font-sans pb-32 overflow-hidden selection:bg-blue-100 selection:text-blue-600">
-      {/* 1. HERO: TACTICAL ARCHITECTURE */}
-      <section className="relative pt-40 pb-28 px-6">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              style={{ x: mousePos.x * -0.5, y: mousePos.y * -0.5 }}
-            >
-              <div
-                className="inline-flex items-center gap-3 px-5 py-2 rounded-2xl mb-8"
-                style={nStyle("inset")}
-              >
-                <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
-                  Jamal_Studio_Manifesto
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] mb-12 ">
-                Digital{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-cyan-600 italic">
-                  Engineering.
-                </span>
-              </h1>
-              <p className="text-slate-500 text-lg md:text-2xl max-w-xl leading-relaxed font-medium">
-                We replace generic design with{" "}
-                <span className="text-slate-900 underline decoration-blue-500 decoration-4">
-                  technical superiority
-                </span>
-                . Jamal Studio is where business logic meets architectural
-                precision.
-              </p>
-            </motion.div>
+  const circularMembers = teamMembers;
 
-            {/* Diagnostic Asset */}
-            <motion.div
-              className="hidden lg:flex justify-center"
-              style={{
-                x: mousePos.x,
-                y: mousePos.y,
-                rotateX: mousePos.y * -0.1,
-                rotateY: mousePos.x * 0.1,
-              }}
-            >
-              <div
-                className="w-[450px] h-[450px] rounded-[60px] p-12 relative overflow-hidden"
-                style={nStyle("outset", 1.5)}
-              >
-                <div className="flex justify-between items-start mb-12">
-                  <Microscope size={40} className="text-blue-600" />
-                  <div className="text-right">
-                    <div className="text-[10px] font-black text-slate-300 uppercase">
-                      System_Active
-                    </div>
-                    <div className="text-xl font-black text-emerald-500">
-                      OPTIMAL
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className="h-1.5 w-full rounded-full overflow-hidden"
-                    style={nStyle("inset")}
-                  >
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "95%" }}
-                      transition={{ duration: 2 }}
-                      className="h-full bg-blue-600"
-                    />
-                  </div>
-                  <div
-                    className="h-1.5 w-3/4 rounded-full overflow-hidden"
-                    style={nStyle("inset")}
-                  >
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "88%" }}
-                      transition={{ duration: 2, delay: 0.5 }}
-                      className="h-full bg-emerald-500"
-                    />
-                  </div>
-                </div>
+  const handleNext = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev + 1) % circularMembers.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const handlePrev = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex(
+      (prev) => (prev - 1 + circularMembers.length) % circularMembers.length,
+    );
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const getCardPosition = (index) => {
+    const totalCards = circularMembers.length;
+    let relativePos = (index - currentIndex + totalCards) % totalCards;
+    if (relativePos > totalCards / 2) relativePos -= totalCards;
+    const angleStep = isMobile ? 40 : 30;
+    const radius = isMobile ? 180 : 400;
+    const angle = relativePos * angleStep;
+    const xOffset = Math.sin(angle * (Math.PI / 180)) * radius;
+    const distance = Math.abs(relativePos);
+    const scale = isMobile
+      ? relativePos === 0
+        ? 1
+        : 0.8
+      : Math.max(0.7, 1 - distance * 0.15);
+    const opacity = isMobile
+      ? distance > 1
+        ? 0
+        : 1 - distance * 0.5
+      : Math.max(0.4, 1 - distance * 0.2);
+    return {
+      x: xOffset,
+      scale,
+      opacity,
+      zIndex: totalCards - distance,
+      isCenter: relativePos === 0,
+    };
+  };
+
+  return (
+    <div className="bg-slate-50 min-h-screen text-slate-900 font-sans pb-32 overflow-hidden">
+      {/* 1. ENHANCED: DEVELOPING HIGH-IMPACT SOLUTIONS (ADVANCED LOOK) */}
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+        {/* soft background accents (doesn't affect other sections) */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-blue-500/10 to-cyan-400/10 blur-2xl" />
+          <div className="absolute -bottom-28 -right-24 w-[520px] h-[520px] rounded-full bg-gradient-to-br from-slate-900/5 to-blue-600/10 blur-2xl" />
+        </div>
+
+        <div className="max-w-7xl mx-auto text-center lg:text-left relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
+              {/* Left: headline */}
+              <div className="w-full lg:max-w-3xl">
                 <div
-                  className="absolute bottom-10 left-10 right-10 p-6 rounded-3xl"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl mb-6 shadow-inner"
                   style={nStyle("inset")}
                 >
-                  <pre className="font-mono text-[9px] text-slate-400 leading-tight">
-                    {`> CORE: NEXT_JS_STATIC\n> LOAD_SPEED: 0.8s\n> SEO_SCORE: 100/100\n> STATUS: MISSION_READY`}
-                  </pre>
+                  <Monitor size={14} className="text-blue-600" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
+                    Jamal Studio Archive
+                  </span>
+                </div>
+
+                <h1 className="text-2xl md:text-5xl font-black tracking-tighter leading-[0.9] mb-8 uppercase ">
+                  Developing{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-cyan-600 italic">
+                    High-Impact
+                  </span>{" "}
+                  <br /> Solutions.
+                </h1>
+
+                <p className="text-slate-600 text-lg md:text-xl max-w-3xl leading-relaxed font-medium mb-10">
+                  We are a performance-driven digital agency focused on
+                  developing high-quality websites and e-commerce platforms. We
+                  help businesses grow their online presence, establish
+                  technical credibility, and convert visitors into loyal
+                  customers through architectural precision.
+                </p>
+
+                {/* Mini proof chips */}
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                  {[
+                    { label: "Performance-First", icon: <Zap size={16} /> },
+                    {
+                      label: "Conversion-Led UX",
+                      icon: <TrendingUp size={16} />,
+                    },
+                    { label: "Modern Stacks", icon: <Cpu size={16} /> },
+                  ].map((chip, i) => (
+                    <div
+                      key={i}
+                      className="px-5 py-3 rounded-2xl flex items-center gap-2"
+                      style={nStyle("outset", 0.85)}
+                    >
+                      <span className="text-blue-600">{chip.icon}</span>
+                      <span className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-600">
+                        {chip.label}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </motion.div>
+
+              {/* Right: advanced feature panel */}
+              <motion.div
+                whileHover={{ y: -8 }}
+                className="w-full lg:max-w-md p-10 rounded-[50px] relative"
+                style={nStyle("outset", 1.05)}
+              >
+                <div
+                  className="absolute inset-0 rounded-[50px] opacity-60 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 30% 20%, rgba(37,99,235,0.18), transparent 55%), radial-gradient(circle at 70% 80%, rgba(6,182,212,0.14), transparent 55%)",
+                  }}
+                />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-8">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner"
+                      style={nStyle("inset")}
+                    >
+                      <CheckCircle2 size={26} className="text-emerald-500" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
+                      DELIVERY SYSTEM
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-black text-slate-900 mb-3 uppercase tracking-tight">
+                    Built for outcomes.
+                  </h3>
+                  <p className="text-slate-500 font-medium leading-relaxed text-sm mb-8">
+                    A clean, reliable process designed to ship fast without
+                    sacrificing quality, scalability, or UI polish.
+                  </p>
+
+                  <div className="space-y-4">
+                    {[
+                      {
+                        title: "Architecture",
+                        desc: "Scalable foundations + clean code conventions.",
+                      },
+                      {
+                        title: "Performance",
+                        desc: "Core Web Vitals, caching, and front-end optimization.",
+                      },
+                      {
+                        title: "Conversion",
+                        desc: "UX patterns engineered to increase revenue.",
+                      },
+                    ].map((row, i) => (
+                      <div
+                        key={i}
+                        className="p-5 rounded-[26px]"
+                        style={nStyle("inset")}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 text-blue-600">
+                            <CheckCircle2 size={16} />
+                          </div>
+                          <div>
+                            <div className="text-xs font-black text-slate-800 uppercase tracking-widest">
+                              {row.title}
+                            </div>
+                            <div className="text-xs text-slate-500 font-bold leading-relaxed mt-1">
+                              {row.desc}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. OUR ENGINEERS (MOVED UP, AND NO NAV ARROWS ON MOBILE) */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
+        <header className="text-center mb-20">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 uppercase">
+            Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 italic">
+              Engineers.
+            </span>
+          </h1>
+          <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.4em]">
+            Meet the people building high-impact digital experiences.
+          </p>
+        </header>
+
+        <div className="max-w-7xl mx-auto relative px-6">
+          {/* ✅ explicitly hidden on mobile */}
+          <button
+            onClick={handlePrev}
+            disabled={isTransitioning}
+            className="absolute left-10 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full transition-all hidden lg:flex"
+            style={nStyle("outset")}
+          >
+            <ChevronLeft size={30} className="text-slate-400" />
+          </button>
+
+          <div className="relative h-[550px] flex items-center justify-center perspective-[1200px]">
+            {circularMembers.map((member, index) => {
+              const pos = getCardPosition(index);
+              return (
+                <motion.div
+                  key={member.id}
+                  style={{
+                    ...nStyle("outset", pos.isCenter ? 1.2 : 0.8),
+                    position: "absolute",
+                    width: isMobile ? "280px" : "360px",
+                    height: isMobile ? "420px" : "500px",
+                    zIndex: pos.zIndex,
+                    opacity: pos.opacity,
+                    cursor: "default",
+                    padding: "15px",
+                    borderRadius: "40px",
+                  }}
+                  animate={{ x: pos.x, scale: pos.scale }}
+                  transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                >
+                  {member.isFeatured && (
+                    <div
+                      className="absolute top-8 left-8 z-20 px-4 py-1.5 rounded-full flex items-center gap-2 text-[10px] font-black text-white"
+                      style={{
+                        background: "linear-gradient(145deg, #2563eb, #06b6d4)",
+                      }}
+                    >
+                      <Star size={12} fill="currentColor" /> FEATURED
+                    </div>
+                  )}
+                  <div className="w-full h-full rounded-[30px] overflow-hidden relative group">
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 pt-20 bg-gradient-to-t from-white via-white/90 to-transparent">
+                      <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                        {member.role}
+                      </span>
+                      <h3 className="text-2xl font-black text-slate-900 mt-1 uppercase">
+                        {member.name}
+                      </h3>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed mt-2">
+                        {member.tagline}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* ✅ explicitly hidden on mobile */}
+          <button
+            onClick={handleNext}
+            disabled={isTransitioning}
+            className="absolute right-10 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full transition-all hidden lg:flex"
+            style={nStyle("outset")}
+          >
+            <ChevronRight size={30} className="text-blue-600" />
+          </button>
+
+          <div className="flex justify-center gap-3 mt-12">
+            {circularMembers.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 transition-all duration-300 rounded-full ${
+                  index === currentIndex
+                    ? "w-8 bg-blue-600"
+                    : "w-2 bg-slate-300"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* /* 2. STATS (Trust)  */}
-      <section className="max-w-7xl mx-auto px-3 mb-0">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            {
-              label: "Performance",
-              val: "A+",
-              icon: <Zap />,
-              color: "text-amber-500",
-            },
-            {
-              label: "Revenue Delta",
-              val: "+140%",
-              icon: <TrendingUp />,
-              color: "text-emerald-500",
-            },
-            {
-              label: "Global Launch",
-              val: "150+",
-              icon: <Globe />,
-              color: "text-blue-500",
-            },
-            {
-              label: "Clean Code",
-              val: "100%",
-              icon: <Code2 />,
-              color: "text-purple-500",
-            },
-          ].map((stat, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ y: -10 }}
-              className="p-5 rounded-[45px] text-center group"
-              style={nStyle("outset")}
-            >
+      {/* 3. THE DIFFERENCE (MOVED AFTER ENGINEERS) */}
+      <section className="py-24 bg-white/30 backdrop-blur-sm border-y border-slate-200/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase">
+              The <span className="text-blue-600">Difference.</span>
+            </h2>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.5em] mt-2">
+              Why global brands choose us
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Performance First",
+                desc: "We prioritize sub-second load times and technical efficiency.",
+                icon: <Zap size={20} />,
+              },
+              {
+                title: "Modern Stacks",
+                desc: "Using Next.js and Shopify to ensure long-term scalability.",
+                icon: <Cpu size={20} />,
+              },
+              {
+                title: "Conversion Led",
+                desc: "Design strategies built specifically to turn clicks into revenue.",
+                icon: <TrendingUp size={20} />,
+              },
+              {
+                title: "Reliable Support",
+                desc: "Ongoing partnership focused on your long-term evolution.",
+                icon: <ShieldCheck size={20} />,
+              },
+            ].map((item, i) => (
               <div
-                className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-inner`}
+                key={i}
+                className="p-8 rounded-[40px]"
                 style={nStyle("inset")}
               >
-                <div className={`${stat.color}`}>{stat.icon}</div>
+                <div className="text-blue-600 mb-4">{item.icon}</div>
+                <h4 className="font-black text-slate-900 text-sm mb-2 uppercase">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-slate-500 font-bold leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-              <div className="text-3xl font-black text-slate-900 mb-1">
-                {stat.val}
-              </div>
-              <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 3. YOUR SKILLS SECTION (RE-THEMED TO HD LIGHT) */}
+      {/* 4. OUR TECHNICAL STACK (MOVED AFTER DIFFERENCE) */}
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
@@ -223,7 +562,7 @@ const AboutPage = () => {
               className="inline-flex px-6 py-2 rounded-xl mb-6 shadow-inner"
               style={nStyle("inset")}
             >
-              <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900">
+              <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 uppercase">
                 Our <span className="text-blue-600">Technical</span> Stack
               </h2>
             </motion.div>
@@ -232,7 +571,6 @@ const AboutPage = () => {
             </p>
           </div>
 
-          {/* Badges Grid (Provided by you, styled for HD Neumorphism) */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-24">
             {SKILL_BADGES.map((badge, i) => (
               <motion.div
@@ -257,7 +595,6 @@ const AboutPage = () => {
             ))}
           </div>
 
-          {/* Proficiency Levels (Provided by you, styled for HD Neumorphism) */}
           <div className="max-w-4xl mx-auto space-y-8">
             {PROGRESS_SKILLS.map((skill, i) => (
               <div
@@ -281,183 +618,16 @@ const AboutPage = () => {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.percent}%` }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 relative overflow-hidden"
-                  >
-                    <motion.div
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      className="absolute inset-0 bg-white/20 skew-x-12"
-                    />
-                  </motion.div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. BRAND CORE: OBSESSION (Emotion) */}
-      <section className="py-40 px-6 bg-white/40 border-y border-slate-200/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-            <div style={{ x: mousePos.x * -0.3, y: mousePos.y * -0.3 }}>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 leading-[0.9]">
-                Driven by{" "}
-                <span className="text-blue-600 italic">Obsession.</span>
-              </h2>
-              <p className="text-slate-500 text-lg leading-relaxed font-medium mb-12">
-                At Jamal Studio, we are haunted by inefficiency. We believe
-                every millisecond matters and every pixel carries the weight of
-                your brand's authority.
-              </p>
-              <div className="flex gap-4">
-                <div
-                  className="p-6 rounded-3xl flex-1 text-center"
-                  style={nStyle("outset")}
-                >
-                  <Heart className="text-rose-500 mb-2 mx-auto" size={24} />
-                  <div className="text-xs font-black uppercase text-slate-400 tracking-widest">
-                    Client Focus
-                  </div>
-                  <div className="text-lg font-black text-slate-900">
-                    ABSOLUTE
-                  </div>
-                </div>
-                <div
-                  className="p-6 rounded-3xl flex-1 text-center"
-                  style={nStyle("outset")}
-                >
-                  <ShieldAlert
-                    className="text-amber-500 mb-2 mx-auto"
-                    size={24}
+                    className="h-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-500"
                   />
-                  <div className="text-xs font-black uppercase text-slate-400 tracking-widest">
-                    Code Quality
-                  </div>
-                  <div className="text-lg font-black text-slate-900">
-                    VERIFIED
-                  </div>
                 </div>
               </div>
-            </div>
-            <div className="p-4 rounded-[60px]" style={nStyle("inset")}>
-              <div
-                className="p-12 rounded-[50px] space-y-10"
-                style={nStyle("outset", 1.3)}
-              >
-                {[
-                  {
-                    id: "01",
-                    t: "Radical Transparency",
-                    d: "Real-time dev logs.",
-                  },
-                  { id: "02", t: "Scientific UX", d: "Data-backed flows." },
-                  { id: "03", t: "Global Scale", i: "Edge propagation." },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-6">
-                    <div className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-black text-xs shadow-xl">
-                      {item.id}
-                    </div>
-                    <div>
-                      <h4 className="font-black text-slate-900 uppercase text-sm">
-                        {item.t}
-                      </h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                        {item.d}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. TEAM ARCHITECTURE (Trust) */}
-      <section className="py-40 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-28">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter  mb-4">
-              Our <span className="text-blue-600">Team</span>
-            </h2>
-            <p className="text-slate-400 font-bold tracking-[0.5em] uppercase text-xs">
-              Innovation × Rigorous Logic
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-16">
-            {[
-              {
-                name: "Jamal Abdullah",
-                role: "Technical Director",
-                icon: "JA",
-                bio: "Leading core engine logic and high-concurrency architecture.",
-              },
-              {
-                name: "Talha Ameen",
-                role: "Lead UI Architect",
-                icon: "TA",
-                bio: "Engineering fluid user interactions and atomic design systems.",
-              },
-              {
-                name: "M. Abubakar",
-                role: "Backend Systems",
-                icon: "MA",
-                bio: "Specializing in secure bridges and database optimization.",
-              },
-            ].map((member, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -20 }}
-                className="p-12 rounded-[65px] relative group overflow-hidden"
-                style={nStyle("outset")}
-              >
-                <div
-                  className="w-full h-80 rounded-[50px] mb-10 overflow-hidden bg-slate-50 flex items-center justify-center relative shadow-inner"
-                  style={nStyle("inset")}
-                >
-                  <span className="text-8xl font-black text-slate-100 group-hover:text-blue-50 transition-colors">
-                    {member.icon}
-                  </span>
-                  <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-all" />
-                </div>
-                <h3 className="text-3xl font-black text-slate-900 uppercase mb-2 tracking-tighter">
-                  {member.name}
-                </h3>
-                <div className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-8">
-                  {member.role}
-                </div>
-                <p className="text-sm text-slate-500 font-medium mb-12 leading-relaxed italic">
-                  "{member.bio}"
-                </p>
-                <div className="flex gap-6 border-t border-slate-100 pt-10">
-                  {[Linkedin, Github, Twitter].map((Icon, idx) => (
-                    <button
-                      key={idx}
-                      className="p-4 rounded-2xl hover:text-blue-600 transition-all text-slate-300"
-                      style={nStyle("inset")}
-                    >
-                      <Icon size={18} />
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Decorative Fixed Element */}
-      <motion.div
-        animate={{ x: [0, 20, 0], y: [0, 10, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="fixed bottom-10 left-10 hidden xl:block opacity-20 pointer-events-none"
-      >
-        <MousePointer2 size={60} className="text-blue-600" />
-        <span className="bg-blue-600 text-[10px] font-black px-2 py-1 rounded text-white mt-2 block tracking-widest uppercase">
-          System_Active
-        </span>
-      </motion.div>
+      {/* ✅ REMOVED: "Let's architect your Technical Future." section (as requested) */}
     </div>
   );
 };
