@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   SiReact,
@@ -199,6 +199,11 @@ const AboutPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  // ✅ Swipe refs (mobile engineers carousel)
+  const swipeStartX = useRef(null);
+  const swipeLastX = useRef(null);
+  const swipeLocked = useRef(false);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -222,6 +227,42 @@ const AboutPage = () => {
       (prev) => (prev - 1 + circularMembers.length) % circularMembers.length,
     );
     setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  // ✅ Mobile swipe handlers (only affects Engineers carousel area)
+  const onSwipeStart = (clientX) => {
+    swipeStartX.current = clientX;
+    swipeLastX.current = clientX;
+    swipeLocked.current = false;
+  };
+
+  const onSwipeMove = (clientX) => {
+    swipeLastX.current = clientX;
+  };
+
+  const onSwipeEnd = () => {
+    if (!isMobile) return;
+
+    const start = swipeStartX.current;
+    const end = swipeLastX.current;
+
+    swipeStartX.current = null;
+    swipeLastX.current = null;
+
+    if (start == null || end == null) return;
+    if (swipeLocked.current) return;
+
+    const delta = end - start;
+    const threshold = 45; // small + responsive
+
+    // swipe left => next, swipe right => prev
+    if (delta <= -threshold) {
+      swipeLocked.current = true;
+      handleNext();
+    } else if (delta >= threshold) {
+      swipeLocked.current = true;
+      handlePrev();
+    }
   };
 
   const getCardPosition = (index) => {
@@ -398,7 +439,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 2. OUR ENGINEERS (MOVED UP, AND NO NAV ARROWS ON MOBILE) */}
+      {/* 2. OUR ENGINEERS (SWIPE ON MOBILE + NO NAV ARROWS ON MOBILE) */}
       <section className="py-24 bg-slate-50 relative overflow-hidden">
         <header className="text-center mb-20">
           <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 uppercase">
@@ -413,7 +454,7 @@ const AboutPage = () => {
         </header>
 
         <div className="max-w-7xl mx-auto relative px-6">
-          {/* ✅ explicitly hidden on mobile */}
+          {/* ✅ arrows remain desktop-only */}
           <button
             onClick={handlePrev}
             disabled={isTransitioning}
@@ -423,7 +464,18 @@ const AboutPage = () => {
             <ChevronLeft size={30} className="text-slate-400" />
           </button>
 
-          <div className="relative h-[550px] flex items-center justify-center perspective-[1200px]">
+          {/* ✅ swipe surface (only affects Engineers carousel) */}
+          <div
+            className="relative h-[550px] flex items-center justify-center perspective-[1200px]"
+            style={{
+              touchAction: "pan-y", // allow vertical scroll, still detect horizontal swipes
+              userSelect: "none",
+            }}
+            onTouchStart={(e) => onSwipeStart(e.touches[0].clientX)}
+            onTouchMove={(e) => onSwipeMove(e.touches[0].clientX)}
+            onTouchEnd={onSwipeEnd}
+            onTouchCancel={onSwipeEnd}
+          >
             {circularMembers.map((member, index) => {
               const pos = getCardPosition(index);
               return (
@@ -439,6 +491,7 @@ const AboutPage = () => {
                     cursor: "default",
                     padding: "15px",
                     borderRadius: "40px",
+                    pointerEvents: pos.isCenter ? "auto" : "none", // prevents side cards from "stealing" the swipe
                   }}
                   animate={{ x: pos.x, scale: pos.scale }}
                   transition={{ type: "spring", stiffness: 200, damping: 25 }}
@@ -458,6 +511,7 @@ const AboutPage = () => {
                       src={member.photo}
                       alt={member.name}
                       className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
+                      draggable={false}
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-8 pt-20 bg-gradient-to-t from-white via-white/90 to-transparent">
                       <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
@@ -476,7 +530,7 @@ const AboutPage = () => {
             })}
           </div>
 
-          {/* ✅ explicitly hidden on mobile */}
+          {/* ✅ arrows remain desktop-only */}
           <button
             onClick={handleNext}
             disabled={isTransitioning}
