@@ -390,3 +390,88 @@ export const SKILL_BADGES = [
     iconColor: "#412991",
   },
 ];
+
+export const PROGRESS_SKILLS = [
+  { name: "React.js", percent: 90 },
+  { name: "Node.js", percent: 85 },
+  { name: "MongoDB", percent: 80 },
+  { name: "Express.js", percent: 80 },
+  { name: "TailwindCSS", percent: 85 },
+  { name: "Shopify", percent: 75 },
+  { name: "WordPress", percent: 70 },
+];
+
+export const teamMembers = [
+  {
+    id: "tm-001",
+    name: "Ayesha Khan",
+    role: "Founder & CEO",
+    tagline: "Product vision, strategy, and execution.",
+    photo:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: true,
+  },
+  {
+    id: "tm-002",
+    name: "Daniel Carter",
+    role: "CTO",
+    tagline: "Architecture, scalability, and clean engineering.",
+    photo:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-003",
+    name: "Fatima Noor",
+    role: "Product Designer",
+    tagline: "Human-centered UI/UX with pixel-perfect visuals.",
+    photo:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-004",
+    name: "Muhammad Ali",
+    role: "Frontend Engineer",
+    tagline: "React, animations, and performance-focused UI.",
+    photo:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-005",
+    name: "Sophia Martinez",
+    role: "Backend Engineer",
+    tagline: "APIs, databases, auth, and system reliability.",
+    photo:
+      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-006",
+    name: "Omar Farooq",
+    role: "DevOps Engineer",
+    tagline: "CI/CD pipelines, cloud infra, and monitoring.",
+    photo:
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-007",
+    name: "Hira Sheikh",
+    role: "QA Engineer",
+    tagline: "Automation testing and quality assurance.",
+    photo:
+      "https://images.unsplash.com/photo-1550525811-e5869dd03032?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+  {
+    id: "tm-008",
+    name: "James Wilson",
+    role: "Marketing Lead",
+    tagline: "Brand growth, storytelling, and go-to-market.",
+    photo:
+      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=crop&w=1200&q=80",
+    isFeatured: false,
+  },
+];

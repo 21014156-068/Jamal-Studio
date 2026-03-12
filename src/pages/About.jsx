@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   SiReact,
@@ -18,17 +18,13 @@ import {
   ChevronRight,
   Star,
   Monitor,
-  Target,
-  Award,
   ShieldCheck,
   TrendingUp,
   Cpu,
   CheckCircle2,
 } from "lucide-react";
+import { teamMembers, SKILL_BADGES, PROGRESS_SKILLS } from "../componets/data";
 
-// --------------------------------------------
-// FINALIZED HD NEUMORPHIC STYLE
-// --------------------------------------------
 const themeColor = "#e0e5ec";
 
 const nStyle = (type = "outset", intensity = 1) => {
@@ -43,156 +39,6 @@ const nStyle = (type = "outset", intensity = 1) => {
     transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   };
 };
-
-// --------------------------------------------
-// DATA
-// --------------------------------------------
-const SKILL_BADGES = [
-  {
-    name: "React.js",
-    icon: <SiReact size={21} />,
-    color: "from-blue-500/20 to-cyan-400/20",
-    iconColor: "#61DAFB",
-  },
-  {
-    name: "Node.js",
-    icon: <SiNodedotjs size={21} />,
-    color: "from-green-500/20 to-emerald-400/20",
-    iconColor: "#339933",
-  },
-  {
-    name: "Express.js",
-    icon: <SiExpress size={21} />,
-    color: "from-gray-400/20 to-gray-300/20",
-    iconColor: "#000000",
-  },
-  {
-    name: "MongoDB",
-    icon: <SiMongodb size={21} />,
-    color: "from-green-600/20 to-green-400/20",
-    iconColor: "#47A248",
-  },
-  {
-    name: "Tailwind",
-    icon: <SiTailwindcss size={21} />,
-    color: "from-cyan-500/20 to-blue-400/20",
-    iconColor: "#06B6D4",
-  },
-  {
-    name: "Shopify",
-    icon: <SiShopify size={21} />,
-    color: "from-amber-600/20 to-amber-400/20",
-    iconColor: "#96BF48",
-  },
-  {
-    name: "WordPress",
-    icon: <SiWordpress size={21} />,
-    color: "from-blue-700/20 to-blue-500/20",
-    iconColor: "#21759B",
-  },
-  {
-    name: "Git & GitHub",
-    icon: <SiGithub size={21} />,
-    color: "from-gray-800/20 to-gray-600/20",
-    iconColor: "#181717",
-  },
-  {
-    name: "AI Tools",
-    icon: (
-      <div className="flex gap-1">
-        <SiOpenai size={18} />
-        <FaRobot size={16} />
-      </div>
-    ),
-    color: "from-purple-500/20 to-pink-400/20",
-    iconColor: "#412991",
-  },
-];
-
-const PROGRESS_SKILLS = [
-  { name: "React.js", percent: 90 },
-  { name: "Node.js", percent: 85 },
-  { name: "MongoDB", percent: 80 },
-  { name: "Express.js", percent: 80 },
-  { name: "TailwindCSS", percent: 85 },
-  { name: "Shopify", percent: 75 },
-  { name: "WordPress", percent: 70 },
-];
-
-const teamMembers = [
-  {
-    id: "tm-001",
-    name: "Ayesha Khan",
-    role: "Founder & CEO",
-    tagline: "Product vision, strategy, and execution.",
-    photo:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: true,
-  },
-  {
-    id: "tm-002",
-    name: "Daniel Carter",
-    role: "CTO",
-    tagline: "Architecture, scalability, and clean engineering.",
-    photo:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-003",
-    name: "Fatima Noor",
-    role: "Product Designer",
-    tagline: "Human-centered UI/UX with pixel-perfect visuals.",
-    photo:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-004",
-    name: "Muhammad Ali",
-    role: "Frontend Engineer",
-    tagline: "React, animations, and performance-focused UI.",
-    photo:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-005",
-    name: "Sophia Martinez",
-    role: "Backend Engineer",
-    tagline: "APIs, databases, auth, and system reliability.",
-    photo:
-      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-006",
-    name: "Omar Farooq",
-    role: "DevOps Engineer",
-    tagline: "CI/CD pipelines, cloud infra, and monitoring.",
-    photo:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-007",
-    name: "Hira Sheikh",
-    role: "QA Engineer",
-    tagline: "Automation testing and quality assurance.",
-    photo:
-      "https://images.unsplash.com/photo-1550525811-e5869dd03032?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-  {
-    id: "tm-008",
-    name: "James Wilson",
-    role: "Marketing Lead",
-    tagline: "Brand growth, storytelling, and go-to-market.",
-    photo:
-      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=crop&w=1200&q=80",
-    isFeatured: false,
-  },
-];
 
 const AboutPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -440,15 +286,15 @@ const AboutPage = () => {
       </section>
 
       {/* 2. OUR ENGINEERS (SWIPE ON MOBILE + NO NAV ARROWS ON MOBILE) */}
-      <section className="py-24 bg-slate-50 relative overflow-hidden">
-        <header className="text-center mb-20">
+      <section className="py-24 mt-[-40px] mb-[-40px] bg-slate-50 relative overflow-hidden">
+        <header className="text-center mt-[-40px] mb-5">
           <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 uppercase">
             Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 italic">
               Engineers.
             </span>
           </h1>
-          <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.4em]">
+          <p className="text-slate-400 font-bold  text-[10px] tracking-[0.4em]">
             Meet the people building high-impact digital experiences.
           </p>
         </header>
@@ -560,14 +406,14 @@ const AboutPage = () => {
       <section className="py-24 bg-white/30 backdrop-blur-sm border-y border-slate-200/50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase">
+            <h2 className="text-3xl md:text-5xl mt-[-40px] font-black tracking-tighter uppercase">
               The <span className="text-blue-600">Difference.</span>
             </h2>
             <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.5em] mt-2">
               Why global brands choose us
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-[-40px]">
             {[
               {
                 title: "Performance First",
@@ -609,9 +455,9 @@ const AboutPage = () => {
       </section>
 
       {/* 4. OUR TECHNICAL STACK (MOVED AFTER DIFFERENCE) */}
-      <section className="py-32 px-6">
+      <section className="py-32 px-6 mb-[-100px]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mt-[-50px] mb-20">
             <motion.div
               className="inline-flex px-6 py-2 rounded-xl mb-6 shadow-inner"
               style={nStyle("inset")}
@@ -649,7 +495,7 @@ const AboutPage = () => {
             ))}
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="max-w-4xl mx-auto space-y-8 ">
             {PROGRESS_SKILLS.map((skill, i) => (
               <div
                 key={i}
