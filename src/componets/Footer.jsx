@@ -1,10 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { MessageCircle, Mail, MapPin, Phone, ArrowUp } from "lucide-react";
-import { SOCIAL } from "./data";
-import { CONTACT_INFO } from "./data";
+import { motion, useReducedMotion } from "framer-motion";
+import { MessageCircle, ArrowUp } from "lucide-react";
+import { SOCIAL, CONTACT_INFO } from "./data";
 
-// Unified Quick Links for the complete site
 const QUICK_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Case Study", href: "/case-study" },
@@ -13,260 +11,381 @@ const QUICK_LINKS = [
   { label: "Blogs", href: "/blogs" },
 ];
 
-// Framer Motion variants
+// Motion variants (slightly softer)
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-  },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.08 } },
 };
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, type: "spring" } },
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
 };
-const neumorphicStyle = (isActive = false) => ({
-  background: "linear-gradient(145deg, #0c0e12, #10131a)",
-  boxShadow: isActive
-    ? "inset 2px 2px 5px rgba(0,0,0,0.7), inset -1px -1px 3px rgba(255,255,255,0.05)"
-    : "5px 5px 10px rgba(5, 5, 7, 0.8), -3px -3px 8px rgba(35, 35, 45, 0.2)",
-  border: "1px solid rgba(255,255,255,0.03)",
-});
-// Scroll to top function
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+
+// Better neumorphism: responsive + less muddy on mobile
+const neumorphicStyle = ({
+  variant = "card",
+  isPressed = false,
+  intensity = 1,
+} = {}) => {
+  // Core Jamal Studio Color Palette
+  const bgMain = "#0D0F13"; // Background surface
+  const bgLight = "#12151c"; // Light source surface (top-left)
+
+  // Dynamic Shadow Calculations based on intensity
+  const distance = 8 * intensity;
+  const blur = 16 * intensity;
+
+  // High-Definition Shadow Logic
+  const shadows = {
+    // Light coming from top-left (White highlight) + Dark shadow at bottom-right
+    outset: `
+      ${distance}px ${distance}px ${blur}px rgba(0, 0, 0, 0.8), 
+      -${distance / 2}px -${distance / 2}px ${blur}px rgba(255, 255, 255, 0.03)
+    `,
+    // Inward shadows for a "pushed in" or active look
+    inset: `
+      inset ${distance / 2}px ${distance / 2}px ${blur / 2}px rgba(0, 0, 0, 0.9), 
+      inset -${distance / 4}px -${distance / 4}px ${blur / 2}px rgba(255, 255, 255, 0.02)
+    `,
+  };
+
+  const base = {
+    // Neumorphic surfaces look best with a very subtle gradient matching the light source
+    background: isPressed
+      ? bgMain
+      : `linear-gradient(145deg, ${bgLight}, ${bgMain})`,
+    boxShadow: isPressed ? shadows.inset : shadows.outset,
+    border: "1px solid rgba(255, 255, 255, 0.01)", // Micro-border for edge crispness
+    borderRadius: "24px",
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  };
+
+  const variants = {
+    card: {
+      ...base,
+      borderRadius: "32px",
+    },
+    chip: {
+      ...base,
+      borderRadius: "100px",
+      padding: "8px 16px",
+    },
+    icon: {
+      ...base,
+      borderRadius: "16px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    cta: {
+      ...base,
+      borderRadius: "20px",
+      // CTAs get a slightly more "glossy" top highlight
+      background: isPressed
+        ? bgMain
+        : `linear-gradient(145deg, #1a1d26, #0D0F13)`,
+      border: "1px solid rgba(255, 255, 255, 0.05)",
+    },
+    // Useful for form inputs
+    input: {
+      ...base,
+      background: bgMain,
+      boxShadow: shadows.inset, // Inputs are usually inset by default
+      borderRadius: "12px",
+    },
+  };
+
+  return variants[variant] || base;
 };
+
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 const Footer = () => {
   const footerRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const reduceMotion = useReducedMotion();
 
-  // Parallax mouse effect logic
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Desktop detection (parallax only on desktop)
   useEffect(() => {
+    const update = () =>
+      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Parallax mouse effect (desktop only + disabled if reduced motion)
+  useEffect(() => {
+    if (!isDesktop || reduceMotion) return;
+
     const handleMouseMove = (e) => {
-      if (footerRef.current) {
-        const rect = footerRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 15;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 15;
-        setMousePosition({ x, y });
-      }
+      if (!footerRef.current) return;
+      const rect = footerRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+      setMousePosition({ x, y });
     };
 
     const footer = footerRef.current;
-    if (footer) {
-      footer.addEventListener("mousemove", handleMouseMove);
-    }
-    return () => {
-      if (footer) footer.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+    footer?.addEventListener("mousemove", handleMouseMove);
+    return () => footer?.removeEventListener("mousemove", handleMouseMove);
+  }, [isDesktop, reduceMotion]);
+
+  const parallaxTransform =
+    isDesktop && !reduceMotion
+      ? `translate3d(${mousePosition.x * 0.35}px, ${mousePosition.y * 0.35}px, 0)`
+      : "none";
 
   return (
     <footer
       ref={footerRef}
-      className="relative pt-20 pb-10 px-4 z-30 overflow-hidden"
-      style={{
-        background: "#000000",
-      }}
+      className="relative z-30 overflow-hidden px-4 pt-16 pb-10 sm:px-6"
+      style={{ background: "#000" }}
     >
-      {/* Animated floating elements */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-gray-500 pointer-events-none"
+      {/* Background accents (cleaner + looks better on mobile) */}
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl"
           style={{
-            left: `${10 + i * 18}%`,
-            top: `${15 + i * 15}%`,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0, 0.4, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: 5 + i,
-            repeat: Infinity,
-            delay: i * 0.8,
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.10), rgba(255,255,255,0) 60%)",
           }}
         />
-      ))}
+        <div
+          className="absolute -bottom-32 right-[-80px] h-80 w-80 rounded-full blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(120,120,255,0.10), rgba(0,0,0,0) 60%)",
+          }}
+        />
+      </div>
+
+      {/* Subtle floating dots (disabled on reduced motion) */}
+      {!reduceMotion &&
+        [...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="pointer-events-none absolute h-1 w-1 rounded-full bg-white/40"
+            style={{ left: `${12 + i * 18}%`, top: `${18 + i * 14}%` }}
+            animate={{
+              y: [0, -16, 0],
+              opacity: [0, 0.35, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.7 }}
+          />
+        ))}
 
       <motion.div
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10"
+        className="relative z-10 mx-auto max-w-6xl"
+        style={{ transform: parallaxTransform }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.15 }}
         variants={containerVariants}
-        style={{
-          transform: `translateX(${mousePosition.x * 0.3}px) translateY(${mousePosition.y * 0.3}px)`,
-        }}
       >
-        {/* Brand section */}
-        <motion.div variants={fadeInUp} className="flex flex-col">
+        {/* MAIN GRID: mobile-first, cleaner spacing */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
           <motion.div
-            className="px-6 py-3 rounded-xl mb-6 inline-block w-fit"
-            style={neumorphicStyle()}
+            variants={fadeInUp}
+            className="rounded-2xl p-6"
+            style={neumorphicStyle("card")}
           >
-            <span className="text-xl md:text-2xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">
-              Jamal
-            </span>
-            <span className="ml-2 text-[10px] px-2 py-0.5 rounded-md text-gray-400 bg-[#0D0F13] shadow-inner font-mono">
-              STUDIO
-            </span>
-          </motion.div>
-
-          <p className="text-gray-400 text-sm mb-6 max-w-xs leading-relaxed">
-            Premium web solutions with fast delivery. We create stunning
-            websites that convert visitors into customers.
-          </p>
-
-          <div className="flex gap-3 mb-6">
-            {SOCIAL.map((s) => (
-              <motion.a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl"
-                style={neumorphicStyle()}
-                whileHover={{ y: -4, scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            <div className="flex items-center gap-3">
+              <div
+                className="rounded-xl px-4 py-2"
+                style={neumorphicStyle("chip")}
               >
-                <s.icon size={20} className="text-gray-300" />
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+                <span className="text-lg font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60">
+                  Jamal
+                </span>
+                <span className="ml-2 rounded-md bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/60">
+                  STUDIO
+                </span>
+              </div>
+            </div>
 
-        {/* Quick links - UPDATED SECTION */}
-        <motion.div variants={fadeInUp} className="flex flex-col">
-          <motion.div
-            className="px-6 py-3 rounded-xl mb-6 w-fit"
-            style={neumorphicStyle()}
-          >
-            <h3 className="text-lg font-semibold text-gray-200">Quick Links</h3>
-          </motion.div>
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
+              Premium web solutions with fast delivery. We create stunning
+              websites that convert visitors into customers.
+            </p>
 
-          <ul className="space-y-3">
-            {QUICK_LINKS.map((l) => (
-              <li key={l.label}>
+            {/* Social: bigger tap targets for mobile */}
+            <div className="mt-5 flex flex-wrap gap-3">
+              {SOCIAL.map((s) => (
                 <motion.a
-                  href={l.href}
-                  className="flex items-center text-gray-400 hover:text-gray-200 transition-colors duration-300 group"
-                  whileHover={{ x: 5 }}
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="rounded-xl p-3"
+                  style={neumorphicStyle("icon")}
+                  whileHover={reduceMotion ? undefined : { y: -3, scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  <span
-                    className="w-2 h-2 rounded-full mr-3"
-                    style={neumorphicStyle()}
-                  ></span>
-                  {l.label}
+                  <s.icon size={20} className="text-white/80" />
                 </motion.a>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Contact info */}
-        <motion.div variants={fadeInUp} className="flex flex-col">
-          <motion.div
-            className="px-6 py-3 rounded-xl mb-6 w-fit"
-            style={neumorphicStyle()}
-          >
-            <h3 className="text-lg font-semibold text-gray-200">
-              Contact Info
-            </h3>
+              ))}
+            </div>
           </motion.div>
 
-          <div className="space-y-4">
-            {CONTACT_INFO.map((info, index) => (
-              <motion.a
-                key={index}
-                href={info.href}
-                className="flex items-start gap-3 text-gray-400 hover:text-gray-200 transition-colors duration-300 group"
-                whileHover={{ x: 5 }}
-              >
-                <div className="p-2 rounded-lg mt-1" style={neumorphicStyle()}>
-                  <info.icon size={16} className="text-gray-300" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">{info.value}</p>
-                  <p className="text-xs text-gray-500">{info.label}</p>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* CTA section */}
-        <motion.div variants={fadeInUp} className="flex flex-col">
+          {/* Quick Links */}
           <motion.div
-            className="px-6 py-3 rounded-xl mb-6 w-fit"
-            style={neumorphicStyle()}
+            variants={fadeInUp}
+            className="rounded-2xl p-6"
+            style={neumorphicStyle("card")}
           >
-            <h3 className="text-lg font-semibold text-gray-200 ">
+            <h3 className="text-base font-semibold text-white/90">
+              Quick Links
+            </h3>
+
+            <ul className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
+              {QUICK_LINKS.map((l) => (
+                <li key={l.label}>
+                  <motion.a
+                    href={l.href}
+                    className="group flex items-center justify-between rounded-xl px-3 py-2 text-sm text-white/70 outline-none transition"
+                    style={{
+                      background: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                    whileHover={reduceMotion ? undefined : { x: 2 }}
+                  >
+                    <span className="transition-colors group-hover:text-white">
+                      {l.label}
+                    </span>
+                    <span className="text-white/30 group-hover:text-white/60">
+                      →
+                    </span>
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact */}
+          <motion.div
+            variants={fadeInUp}
+            className="rounded-2xl p-6"
+            style={neumorphicStyle("card")}
+          >
+            <h3 className="text-base font-semibold text-white/90">Contact</h3>
+
+            <div className="mt-4 space-y-3">
+              {CONTACT_INFO.map((info, index) => (
+                <motion.a
+                  key={index}
+                  href={info.href}
+                  className="group flex items-start gap-3 rounded-xl px-3 py-3 text-white/70 outline-none transition"
+                  style={{
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                  }}
+                  whileHover={reduceMotion ? undefined : { x: 2 }}
+                >
+                  <div
+                    className="mt-0.5 rounded-lg p-2"
+                    style={neumorphicStyle("icon")}
+                  >
+                    <info.icon size={16} className="text-white/80" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-white/85">
+                      {info.value}
+                    </p>
+                    <p className="text-xs text-white/45">{info.label}</p>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            variants={fadeInUp}
+            className="rounded-2xl p-6"
+            style={neumorphicStyle("card")}
+          >
+            <h3 className="text-base font-semibold text-white/90">
               Get Started
             </h3>
+
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
+              Ready to transform your online presence? Let’s discuss your
+              project.
+            </p>
+
+            <motion.a
+              href="https://wa.me/923331482815"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold text-white outline-none"
+              style={{
+                ...neumorphicStyle("cta"),
+              }}
+              whileHover={reduceMotion ? undefined : { y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <MessageCircle size={18} />
+              Start a Project
+            </motion.a>
+
+            <p className="mt-3 text-xs text-white/45">
+              Typically replies within 24 hours.
+            </p>
           </motion.div>
-
-          <p className="text-gray-400 text-sm mb-5 leading-relaxed">
-            Ready to transform your online presence? Let's discuss your project.
-          </p>
-
-          <motion.a
-            href="https://wa.me/923331482815"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full px-5 py-3.5 rounded-xl font-medium text-gray-100 flex items-center justify-center gap-2"
-            style={neumorphicStyle()}
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <MessageCircle size={18} />
-            Start a Project
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
-      {/* Bottom section */}
-      <motion.div
-        className="max-w-6xl mx-auto mt-12 pt-8 flex flex-col md:flex-row justify-between items-center relative z-10"
-        style={{ borderTop: "1px solid rgba(255, 255, 255, 0.05)" }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="text-white text-sm text-center md:text-left mb-4 md:mb-0">
-          © 2025 Jamal Studio. All rights reserved.
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="hidden sm:flex gap-4">
+        {/* Bottom bar (mobile-friendly) */}
+        <div
+          className="mt-10 flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between"
+          style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.05)",
+          }}
+        >
+          <div className="text-center text-xs text-white/70 sm:text-left">
+            © {new Date().getFullYear()} Jamal Studio. All rights reserved.
+          </div>
+
+          <div className="flex items-center justify-center gap-3 sm:justify-end">
             <a
               href="/privacy"
-              className="text-white hover:text-gray-300 text-xs transition-colors"
+              className="rounded-lg px-3 py-2 text-xs text-white/70 transition hover:text-white"
+              style={{ background: "rgba(255,255,255,0.03)" }}
             >
               Privacy
             </a>
             <a
               href="/terms"
-              className="text-white hover:text-gray-300 text-xs transition-colors"
+              className="rounded-lg px-3 py-2 text-xs text-white/70 transition hover:text-white"
+              style={{ background: "rgba(255,255,255,0.03)" }}
             >
               Terms
             </a>
-          </div>
 
-          <motion.button
-            onClick={scrollToTop}
-            className="p-2.5 rounded-xl"
-            style={neumorphicStyle()}
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ArrowUp size={18} className="text-gray-300" />
-          </motion.button>
+            <motion.button
+              onClick={scrollToTop}
+              className="rounded-xl p-2.5"
+              style={neumorphicStyle("icon")}
+              whileHover={reduceMotion ? undefined : { y: -2 }}
+              whileTap={{ scale: 0.92 }}
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              <ArrowUp size={18} className="text-white/80" />
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </footer>
