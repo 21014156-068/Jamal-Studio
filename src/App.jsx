@@ -8,6 +8,7 @@ import ContactPage from "./pages/Contact";
 import BlogPage from "./pages/Blogs";
 import SingleBlogPost from "./pages/SingleBlog";
 import AboutPage from "./pages/About";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/single-blog" element={<SingleBlogPost />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Routes>
         <Footer />
       </div>
