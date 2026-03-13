@@ -131,7 +131,7 @@ const AuthPage = () => {
             className="space-y-10"
           >
             {/* Agency Badge */}
-            <div className="flex items-center gap-3">
+            <div className="flex mt-10 items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center shadow-lg">
                 <Zap size={20} className="text-blue-500" fill="currentColor" />
               </div>
