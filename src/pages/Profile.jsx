@@ -235,7 +235,7 @@ export default function ProfilePage() {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
-          <div className="flex flex-col mt-7 md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col mt-9 md:flex-row md:items-center md:justify-between gap-4">
             <div className="space-y-3">
               <div
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl shadow-inner w-fit"
@@ -305,7 +305,7 @@ export default function ProfilePage() {
             />
             <div className="relative space-y-10">
               <SectionTitle
-                icon={<User size={18} />}
+                icon={<User size={17} />}
                 title="Account information"
                 subtitle={
                   editing
